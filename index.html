@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MI PROYECTO // TERMINAL</title>
+
+  <!-- 1. Fuentes de Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+
+  <!-- 2. Hoja de estilos externa -->
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <!-- BARRA SUPERIOR -->
+  <div class="topbar">
+    <div class="topbar-dots">
+      <div class="dot red"></div>
+      <div class="dot yellow"></div>
+      <div class="dot green"></div>
+    </div>
+    <div class="topbar-title">mi-proyecto — bash </div>
+    <div class="topbar-status">● CONECTADO</div>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="prompt-line">
+      <span class="star">*</span>
+      Welcome to <strong>biblioteca</strong> research preview!
+    </div>
+
+    <h1 class="hero-title">MI<br>BIBLIOTECA</h1>
+
+    <p class="hero-sub">Aquí encontraras todo lo que yo se. Aprende. Construye.</p>
+
+    <div class="btn-group">
+      <a href="#" class="btn btn-primary">[ EMPEZAR ]</a>
+      <a href="#" class="btn btn-secondary">[ VER DOCS ]</a>
+    </div>
+  </section>
+
+  <!-- VENTANA TERMINAL -->
+  <div class="terminal-wrap">
+    <div class="terminal">
+      <div class="terminal-header">
+        <div class="dot red"></div>
+        <div class="dot yellow"></div>
+        <div class="dot green"></div>
+        <span>terminal — node index.js</span>
+      </div>
+      <div class="terminal-body">
+        <div class="line"><span class="ps">$</span><span class="cmd">npm install</span></div>
+        <div class="line"><span class="ok">✓ Dependencias instaladas correctamente</span></div>
+        <div class="line">&nbsp;</div>
+        <div class="line"><span class="ps">$</span><span class="cmd">node index.js</span></div>
+        <div class="line"><span class="out">→ Conectando con la API del clima...</span></div>
+        <div class="line"><span class="ok">✓ Conexión establecida</span></div>
+        <div class="line"><span class="out">→ Ciudad: Madrid | Temp: 18°C | ☀️ despejado</span></div>
+        <div class="line"><span class="ok">✓ Mensaje enviado por Telegram</span></div>
+        <div class="line">&nbsp;</div>
+        <div class="line"><span class="ps">$</span><span class="cmd">Login successful. Press <strong>Enter</strong> to continue<span class="cursor"></span></span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <section class="features">
+    <p class="section-title">características</p>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">[ fetch() ]</div>
+        <div class="card-title">LLAMADAS A APIs</div>
+        <div class="card-desc">Consume cualquier API REST con fetch y async/await. Sin librerías externas.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">[ DOM ]</div>
+        <div class="card-title">MANIPULACIÓN DEL DOM</div>
+        <div class="card-desc">querySelector, addEventListener y classList. La forma moderna de manejar el HTML.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">[ JSON ]</div>
+        <div class="card-title">DATOS EN TIEMPO REAL</div>
+        <div class="card-desc">Parsea y desestructura JSON para mostrar información dinámica en tu página.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">[ async ]</div>
+        <div class="card-title">CÓDIGO ASÍNCRONO</div>
+        <div class="card-desc">Maneja promesas con async/await y controla errores con try/catch.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat">
+      <span class="stat-num">1DAW</span>
+      <span class="stat-label">NIVEL ACTUAL</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">JS</span>
+      <span class="stat-label">LENGUAJE</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">0</span>
+      <span class="stat-label">DEPS. EXTERNAS</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">100%</span>
+      <span class="stat-label">VANILLA</span>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="f-star">*</span> Hecho a mano con HTML + CSS + JS puro ·
+    <a href="https://github.com/alejandro677">GitHub</a> ·
+    <a href="https://www.luisllamas.es/roadmap-javascript/">Docs</a>
+    <br>
+    <span style="color:#3a3a36">// no frameworks were harmed in the making of this page</span>
+  </footer>
+
+  <!-- 3. Script al final del body — así el HTML ya está cargado cuando JS lo lee -->
+  <script src="main.js"></script>
+
+</body>
+</html>
