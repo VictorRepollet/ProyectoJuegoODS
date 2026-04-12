@@ -3,12 +3,8 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MI PROYECTO // TERMINAL</title>
-
-  <!-- 1. Fuentes de Google Fonts -->
+  <title>Alimenta el Mundo — ODS</title>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
-
-  <!-- 2. Hoja de estilos externa -->
   <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
@@ -20,109 +16,127 @@
       <div class="dot yellow"></div>
       <div class="dot green"></div>
     </div>
-    <div class="topbar-title">mi-proyecto — bash </div>
-    <div class="topbar-status">● CONECTADO</div>
+    <div class="topbar-title">alimenta-el-mundo — index.html</div>
+    <div class="topbar-status">● EN LÍNEA</div>
   </div>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="prompt-line">
-      <span class="star">*</span>
-      Welcome to <strong>biblioteca</strong> research preview!
+  <div class="page">
+
+    <!-- LOGIN Y REGISTRO -->
+    <div class="top-auth fade-in">
+      <button class="btn-auth" onclick="App.navegarA('login')">[ inicio sesión ]</button>
+      <button class="btn-auth primary" onclick="App.navegarA('registro')">[ registro ]</button>
     </div>
 
-    <h1 class="hero-title">MI<br>BIBLIOTECA</h1>
-
-    <p class="hero-sub">Aquí encontraras todo lo que yo se. Aprende. Construye.</p>
-
-    <div class="btn-group">
-      <a href="#" class="btn btn-primary">[ EMPEZAR ]</a>
-      <a href="#" class="btn btn-secondary">[ VER DOCS ]</a>
+    <!-- BLOQUE JUEGO -->
+    <div class="bloque-juego fade-in">
+      <div class="bloque-juego-inner">
+        <div class="bloque-juego-texto">
+          <h1>ALIMENTA EL<br>MUNDO</h1>
+          <p>Recoge alimentos, entrégalos a quienes más los necesitan.<br>Esquiva obstáculos. Sube al ranking.</p>
+          <div class="btn-group">
+            <button class="btn btn-primary" onclick="App.navegarA('instrucciones')">[ JUGAR ]</button>
+            <button class="btn btn-secondary" onclick="App.navegarA('puntuaciones')">[ RANKING ]</button>
+          </div>
+        </div>
+        <div class="game-preview">
+          <canvas id="preview-canvas" width="200" height="120"></canvas>
+          <span class="game-preview-label">VISTA PREVIA</span>
+        </div>
+      </div>
     </div>
-  </section>
 
-  <!-- VENTANA TERMINAL -->
-  <div class="terminal-wrap">
-    <div class="terminal">
+    <hr class="sep fade-in">
+
+    <!-- BLOQUE MANUAL DE INSTALACIÓN -->
+    <div class="bloque-manual fade-in">
       <div class="terminal-header">
         <div class="dot red"></div>
         <div class="dot yellow"></div>
         <div class="dot green"></div>
-        <span>terminal — node index.js</span>
+        <span>manual de instalación — terminal</span>
       </div>
       <div class="terminal-body">
-        <div class="line"><span class="ps">$</span><span class="cmd">npm install</span></div>
-        <div class="line"><span class="ok">✓ Dependencias instaladas correctamente</span></div>
+        <div class="line"><span class="ps">$</span><span class="cmd">git clone https://github.com/tu-equipo/alimenta-el-mundo.git</span></div>
+        <div class="line"><span class="ok">✓ Repositorio clonado correctamente</span></div>
         <div class="line">&nbsp;</div>
-        <div class="line"><span class="ps">$</span><span class="cmd">node index.js</span></div>
-        <div class="line"><span class="out">→ Conectando con la API del clima...</span></div>
-        <div class="line"><span class="ok">✓ Conexión establecida</span></div>
-        <div class="line"><span class="out">→ Ciudad: Madrid | Temp: 18°C | ☀️ despejado</span></div>
-        <div class="line"><span class="ok">✓ Mensaje enviado por Telegram</span></div>
+        <div class="line"><span class="ps">$</span><span class="cmd">cd alimenta-el-mundo/fuentes</span></div>
+        <div class="line"><span class="out">→ Estructura: /js /css /modelos /controladores /vistas</span></div>
         <div class="line">&nbsp;</div>
-        <div class="line"><span class="ps">$</span><span class="cmd">Login successful. Press <strong>Enter</strong> to continue<span class="cursor"></span></span></div>
+        <div class="line"><span class="ps">$</span><span class="cmd">open index.html</span></div>
+        <div class="line"><span class="ok">✓ No requiere servidor. Abre directamente en el navegador.</span></div>
+        <div class="line"><span class="out">→ Compatibilidad: Chrome 90+ · Firefox 88+ · Edge 91+</span></div>
+        <div class="line">&nbsp;</div>
+        <div class="line"><span class="warn">⚠ Se usa almacenamiento local como base de datos. No borres los datos del navegador.</span></div>
+        <div class="line">&nbsp;</div>
+        <div class="line"><span class="ps">$</span><span class="cmd">Listo. Pulsa <strong>[ JUGAR ]</strong> para empezar.<span class="cursor"></span></span></div>
       </div>
     </div>
-  </div>
 
-  <!-- FEATURES -->
-  <section class="features">
-    <p class="section-title">características</p>
-    <div class="cards">
-      <div class="card">
-        <div class="card-icon">[ fetch() ]</div>
-        <div class="card-title">LLAMADAS A APIs</div>
-        <div class="card-desc">Consume cualquier API REST con fetch y async/await. Sin librerías externas.</div>
-      </div>
-      <div class="card">
-        <div class="card-icon">[ DOM ]</div>
-        <div class="card-title">MANIPULACIÓN DEL DOM</div>
-        <div class="card-desc">querySelector, addEventListener y classList. La forma moderna de manejar el HTML.</div>
-      </div>
-      <div class="card">
-        <div class="card-icon">[ JSON ]</div>
-        <div class="card-title">DATOS EN TIEMPO REAL</div>
-        <div class="card-desc">Parsea y desestructura JSON para mostrar información dinámica en tu página.</div>
-      </div>
-      <div class="card">
-        <div class="card-icon">[ async ]</div>
-        <div class="card-title">CÓDIGO ASÍNCRONO</div>
-        <div class="card-desc">Maneja promesas con async/await y controla errores con try/catch.</div>
-      </div>
-    </div>
-  </section>
+    <hr class="sep fade-in">
 
-  <!-- STATS -->
-  <div class="stats">
-    <div class="stat">
-      <span class="stat-num">1DAW</span>
-      <span class="stat-label">NIVEL ACTUAL</span>
-    </div>
-    <div class="stat">
-      <span class="stat-num">JS</span>
-      <span class="stat-label">LENGUAJE</span>
-    </div>
-    <div class="stat">
-      <span class="stat-num">0</span>
-      <span class="stat-label">DEPS. EXTERNAS</span>
-    </div>
-    <div class="stat">
-      <span class="stat-num">100%</span>
-      <span class="stat-label">VANILLA</span>
-    </div>
-  </div>
+    <!-- FILA INFERIOR: ODS + ESTADÍSTICAS -->
+    <div class="fila-inferior fade-in">
 
-  <!-- FOOTER -->
+      <div class="bloque-ods">
+        <div class="label-seccion">// objetivos de desarrollo sostenible</div>
+        <div class="ods-lista">
+          <div class="ods-item">
+            <span class="ods-num">ODS 2</span>
+            <span class="ods-desc">Hambre Cero — mecánica principal del juego</span>
+          </div>
+          <div class="ods-item">
+            <span class="ods-num ods1">ODS 1</span>
+            <span class="ods-desc">Fin de la Pobreza — impacto secundario</span>
+          </div>
+        </div>
+        <div class="contador-ods">
+          🍽 personas alimentadas globalmente
+          <strong id="contador-global">0</strong>
+        </div>
+      </div>
+
+      <div class="bloque-stats">
+        <div class="label-seccion">// estado del proyecto</div>
+        <div class="stat-fila">
+          <span class="stat-key">entidades CRUD</span>
+          <span class="stat-val verde">3</span>
+        </div>
+        <div class="stat-fila">
+          <span class="stat-key">historias de usuario</span>
+          <span class="stat-val verde">28</span>
+        </div>
+        <div class="stat-fila">
+          <span class="stat-key">iteraciones</span>
+          <span class="stat-val blanco">3</span>
+        </div>
+        <div class="stat-fila">
+          <span class="stat-key">lenguaje</span>
+          <span class="stat-val">JS</span>
+        </div>
+        <div class="stat-fila">
+          <span class="stat-key">arquitectura</span>
+          <span class="stat-val blanco">MVC</span>
+        </div>
+        <div class="stat-fila">
+          <span class="stat-key">dependencias externas</span>
+          <span class="stat-val verde">0</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div><!-- /page -->
+
   <footer>
-    <span class="f-star">*</span> Hecho a mano con HTML + CSS + JS puro ·
-    <a href="https://github.com/alejandro677">GitHub</a> ·
-    <a href="https://www.luisllamas.es/roadmap-javascript/">Docs</a>
+    <span class="f-star">*</span>
+    Alimenta el Mundo · ODS 2 Hambre Cero · Hecho con HTML + CSS + JS puro ·
+    <a href="#">GitHub</a> · <a href="#">Documentación</a>
     <br>
-    <span style="color:#3a3a36">// no frameworks were harmed in the making of this page</span>
+    <span class="f-comment">// ningún framework resultó dañado durante la creación de esta página</span>
   </footer>
 
-  <!-- 3. Script al final del body — así el HTML ya está cargado cuando JS lo lee -->
-  <script type="module" src="app.js"></script>
+  <script src="js/home.js"></script>
 
 </body>
 </html>
