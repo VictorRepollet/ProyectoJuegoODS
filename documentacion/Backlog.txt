@@ -1,0 +1,39 @@
+============================
+        PRODUCT BACKLOG
+============================
+
+--- FORMULARIOS ---
+[ ] Implementar formulario con: input text, textarea, hidden, select, radio, checkbox, button, enlace (a), file y date.
+
+--- VISTAS Y NAVEGACIÓN ---
+[ ] Crear al menos 5 vistas distintas en la aplicación.
+[ ] Diseñar menús de navegación claros entre las vistas.
+
+--- INTERACCIÓN ---
+[ ] Añadir soporte para eventos de ratón y teclado.
+[ ] Implementar funcionalidad de Drag & Drop (arrastrar y soltar).
+
+--- CRUD ---
+[ ] Implementar Inserción de registros.
+[ ] Implementar Listado de registros.
+[ ] Implementar Baja (eliminación) de registros.
+[ ] Implementar Modificación de registros.
+[ ] Implementar Búsqueda avanzada.
+
+--- ODS (Objetivo de Desarrollo Sostenible) ---
+[ ] Identificar el ODS al que contribuye el proyecto.
+[ ] Asegurar que la solución aporta valor real al ODS elegido.
+
+--- CALIDAD DE CÓDIGO ---
+[ ] Aplicar programación orientada a objetos (OO).
+[ ] Usar patrón MVC.
+[ ] Evitar repeticiones (principio DRY).
+[ ] Usar nombres de variables semánticos.
+[ ] Añadir comentarios explicativos en el código.
+
+--- GIT Y TRABAJO EN EQUIPO ---
+[ ] Mantener un buen ambiente de trabajo en el equipo.
+[ ] Usar ramas (branches) correctamente para cada funcionalidad.
+[ ] Hacer merges ordenados al finalizar cada rama.
+
+============================
