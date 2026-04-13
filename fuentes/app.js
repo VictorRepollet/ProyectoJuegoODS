@@ -37,5 +37,5 @@ document.addEventListener("DOMContentLoaded", () => {
         ocultarVistas();
         alert("Aquí irá el ranking ");
     });
-    //Fin US1
+    //Fin HU1
 });
