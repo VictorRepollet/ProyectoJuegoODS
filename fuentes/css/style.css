@@ -366,3 +366,12 @@ footer a:hover   { color: var(--verde); }
   .fila-inferior            { grid-template-columns: 1fr; }
   .bloque-juego-texto h1    { font-size: 1rem; }
 }
+
+#btn-eliminar {
+  border-color: var(--rojo);
+  color: var(--rojo);
+}
+
+#btn-eliminar:hover {
+  background: #7f1d1d;
+}
