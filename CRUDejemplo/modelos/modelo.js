@@ -1,16 +1,15 @@
-export default class Modelo{
+export default class Modelo {
     #alumnos
 
-    constructor(){
-        this.#alumnos = new Set();
+    constructor() {
+        this.#alumnos = new Set()
     }
 
-    agregarAlumno(alumno){
-        this.#alumnos.add(alumno);
-        console.log(this.#alumnos);
+    agregarAlumno(alumno) {
+        this.#alumnos.add(alumno)
     }
 
-    listar(){
+    listar() {
         return this.#alumnos
     }
 }

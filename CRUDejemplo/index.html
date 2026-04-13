@@ -1,47 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prueba de Concepto - MVC</title>
 </head>
 <body>
-        <div id=divVista>
-            <div>
-                <label for=nombre>Nombre</label>
-                <input name=nombre></input>
-            </div>
-            <div>
-                <label for=fechaNacimiento>Fecha Nacimiento:</label>
-                <input type=date name=fechaNacimiento></input>
-            </div>
-            <button>Enviar</button>
-        <!--Ahora tenenmos dos opciones div por cada uno de ellos o hacer una tabla(mejor div, pero miguel en el video se quiere complicar)-->
-            <hr />
-            <table>
-                <thead>
-                    <th>Nombre</th>
-                    <th>Fecha Nacimiento</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Alejandro</td>
-                        <td>30/12/1999</td>
-                    </tr>
-                    <tr>
-                        <td>Victor</td>
-                        <td>30/12/1999</td>
-                    </tr>
-                    <tr>
-                        <td>Carlos</td>
-                        <td>30/12/1999</td>
-                    </tr>
-                </tbody>
-                <tfooter>
+    <label>Nombre: <input type="text"></label><br>
+    <label>Fecha Nacimiento: <input type="date"></label><br>
+    <button>Enviar</button>
 
-                </tfooter>
-            </table>
-        </div>
-        <script type=module src=app.js></script>
+    <table>
+        <thead>
+            <tr><th>Nombre</th><th>Fecha Nacimiento</th></tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script type="module" src="/CRUDejemplo/app.js"></script>
 </body>
 </html>

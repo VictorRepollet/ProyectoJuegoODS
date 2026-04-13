@@ -1,54 +1,49 @@
-
 export default class Vista {
     #controlador
-    //Referencias del interfaz de usuario
     #inputNombre
     #inputFechaNacimiento
     #boton
     #tbody
 
-    constructor(controlador){
-        console.log('Vista creada');
-        this.#controlador = controlador;
-        this.#obtenerReferenciasIU;
-        this.#boton.addEventListener('click', this.#insertar.bind(this))
-        
+    constructor(controlador) {
+        console.log('Vista creada')
+        this.#controlador = controlador
+        this.#obtenerReferenciasIU()
+        this.#boton.addEventListener('click', () => this.#insertar())
     }
 
-    #obtenerReferenciasIU(){
-         this.#boton = document.querySelector('button');
-        this.#inputNombre = document.querySelector('input');
-        this.#inputFechaNacimiento = document.querySelector('input[type="date"]');
-        this.#tbody = document.querySelectorAll('tbody')[1];
-        console.log(this.#tbody);
+    #obtenerReferenciasIU() {
+        this.#boton = document.querySelector('button')
+        this.#inputNombre = document.querySelector('input[type="text"]')   // FIX: era 'input' (ambiguo)
+        this.#inputFechaNacimiento = document.querySelector('input[type="date"]')
+        this.#tbody = document.querySelector('tbody')                      // FIX: era querySelectorAll('tbody')[1], índice fuera de rango
     }
 
-    #insertar(){
-        console.log('Pulsado insertar');
-        const nombre = this.#inputNombre.value;
+    #insertar() {
+        const nombre = this.#inputNombre.value
         const fechaNacimiento = this.#inputFechaNacimiento.value
-        //Aqui falta la validacion de datos 
-        const datos = {
-            'nombre': nombre,
-            'fechaNacimiento' : fechaNacimiento
-        }
-        this.#controlador.insertar(datos);
+        const datos = { nombre, fechaNacimiento }
+        this.#controlador.insertar(datos)
     }
-    listar(alumnos){
-        this.#tbody.innerHTML = '';//Esto borra su html interno
-        alumnos.forEach( alumno => {
-                    <tr>
-                        <td>Alejandro</td>
-                        <td>30/12/1999</td>
-                    </tr>
-                const tr = document.createElement('tr');
-                const tdNombre = document.createElement('td');
-                tr.appendChild(tdNombre);
-                tdNombre.textContent(alumno.getNombre());
 
-                const tdFechaNacimiento = document.createElement('td');
-                tr.appendChild(tdFechaNacimiento);
-                tdFechaNacimiento.textContent(alumno.getFechaNacimiento());
+    listar(alumnos) {
+        this.#tbody.innerHTML = ''
+        alumnos.forEach(alumno => {
+            const tr = document.createElement('tr')
+            this.#tbody.appendChild(tr)
+
+            const tdNombre = document.createElement('td')
+            tr.appendChild(tdNombre)
+            tdNombre.textContent = alumno.getNombre()
+
+            const tdFechaNacimiento = document.createElement('td')
+            tr.appendChild(tdFechaNacimiento)
+            tdFechaNacimiento.textContent = alumno.getFechaNacimiento()
         })
+    }
+
+    limpiar() {
+        this.#inputNombre.value = ''
+        this.#inputFechaNacimiento.value = ''
     }
 }
