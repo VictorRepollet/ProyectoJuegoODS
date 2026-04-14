@@ -214,10 +214,18 @@
     <!-- PUNTUACIONES -->
     <div class="vista juego">
       <h1 id="titulo-punt">[ PUNTUACION ]</h1>
-      <br/>
-      <p>Nombre: <input type="text" id="puntuacion"/></p>
-      <br/>
-      <button type="submit" class="btn jugar" id="btn-puntuacion">[ ENVIAR ]</button>
+      <form id="form-puntuaciones" class="terminal-body">
+        <div>
+          <label for="nombre-punt">Nombre:</label>
+          <input type="text" id="nombre-punt">
+        </div>
+        <div>
+          <label for="puntuacion"></label>
+          <input type="number" id="puntuacion">
+        </div>
+        <button type="submit" class="btn jugar" id="btn-puntuacion">[ ENVIAR ]</button>
+        <button class="btn jugar" id="btn-mostrar-puntuacion">[ MOSTRAR PUNTUACIONES ]</button>
+      </form>  
     </div>
 
     <!-- RANKINGS -->
