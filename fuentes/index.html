@@ -24,10 +24,11 @@
 
     <!-- BOTONES SUPERIORES -->
     <div class="top-auth fade-in">
-      <button class="btn-auth vista activa" id="btn-login">[ LOGIN ]</button>
-      <button class="btn-auth vista activa registro" id="btn-registro">[ REGISTRO ]</button>
-      <button class="btn-auth contacto" id="btn-contacto-nav">[ CONTACTO ]</button>
-      <button class="btn-auth vista" id="btn-editar-perfil">[ PERFIL ]</button>
+      <button class="btn-auth" id="btn-login">[ LOGIN ]</button>
+      <button class="btn-auth" id="btn-registro">[ REGISTRO ]</button>
+      <button class="btn-auth" id="btn-contacto-nav">[ CONTACTO ]</button>
+      <button class="btn-auth" id="btn-editar-perfil">[ PERFIL ]</button>
+      <button class="btn-auth" id="btn-mostrar-jugadores">[ MOSTRAR JUGADORES ]</button>
     </div>
 
     <!-- BLOQUE JUEGO -->
@@ -51,7 +52,7 @@
     <hr class="sep fade-in">
 
     <!-- VISTA REGISTRO -->
-    <div class="vista fade-in" id="vista-registro">
+    <div class="vista activa bloque-manual fade-in" id="vista-registro">
 
       <div class="terminal-header">
         <div class="punto rojo"></div>
@@ -83,18 +84,16 @@
           <label for="password">contraseña:</label>
           <input type="password" id="password" required>
         </div>
-
-        <div>
-          <button type="submit" class="btn jugar" id="btn-crear">
+      </form>
+      <div>
+          <button class="btn jugar" id="btn-crear">
             [ CREAR CUENTA ]
           </button>
         </div>
-
-      </form>
     </div>
 
     <!-- VISTA EDITAR PERFIL -->
-    <div class="vista fade-in" id="vista-editar">
+    <div class="vista activa bloque-manual fade-in" id="vista-editar">
 
       <div class="terminal-header">
         <div class="punto rojo"></div>
@@ -126,22 +125,20 @@
           <label for="editar-password">contraseña:</label>
           <input type="password" id="editar-password">
         </div>
-
-        <div class="grupo-btn">
-          <button type="submit" class="btn jugar" id="btn-guardar">
+      </form>
+      <div class="grupo-btn">
+          <button class="btn jugar" id="btn-guardar">
             [ GUARDAR CAMBIOS ]
           </button>
 
-          <button type="button" class="btn rank" id="btn-eliminar">
+          <button class="btn rank" id="btn-eliminar">
             [ ELIMINAR PERFIL ]
           </button>
         </div>
-
-      </form>
     </div>
 
     <!-- VISTA CONTACTO -->
-    <div class="vista fade-in" id="vista-contacto">
+    <div class="vista activa bloque-manual fade-in" id="vista-contacto">
 
       <div class="terminal-header">
         <div class="punto rojo"></div>
@@ -198,30 +195,75 @@
           <input type="checkbox" id="terminos">
           <label for="terminos">Acepto los términos</label>
         </div>
-
-        <div>
-          <button type="submit" class="btn jugar" id="btn-contacto">
+      </form>
+      <div>
+          <button class="btn jugar" id="btn-contacto">
             [ ENVIAR ]
           </button>
         </div>
+    </div>
 
-      </form>
+    <!-- VISTA JUGADORES -->
+    <div class="vista activa bloque-manual fade-in" id="vista-jugadores">
+
+      <div class="terminal-header">
+        <div class="punto rojo"></div>
+        <div class="punto amarillo"></div>
+        <div class="punto verde"></div>
+        <span>lista de jugadores — system</span>
+      </div>
+
+      <div class="terminal-body">
+        <div>
+          <label for="filtro-jugadores">Filtrar por:</label>
+          <select id="filtro-jugadores">
+            <option value="nombre">Nombre</option>
+            <option value="email">Email</option>
+          </select>
+        </div>
+
+        <table id="tabla-jugadores">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Aquí se llenarán los jugadores con JS -->
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <!-- JUEGO -->
-    <div class="vista juego"></div>
+    <div class="vista activa juego"></div>
 
     <!-- PUNTUACIONES -->
-    <div class="vista juego">
+    <div class="vista activa bloque-manual ">
+      <div class="terminal-header">
+        <div class="punto rojo"></div>
+        <div class="punto amarillo"></div>
+        <div class="punto verde"></div>
+        <span>puntuaciones — system</span>
+      </div>
       <h1 id="titulo-punt">[ PUNTUACION ]</h1>
-      <br/>
-      <p>Nombre: <input type="text" id="puntuacion"/></p>
-      <br/>
-      <button type="submit" class="btn jugar" id="btn-puntuacion">[ ENVIAR ]</button>
+      <form id="form-puntuaciones" class="terminal-body">
+        <div>
+          <label for="nombre-punt">Nombre:</label>
+          <input type="text" id="nombre-punt">
+        </div>
+        <div>
+          <label for="puntuacion">Puntuación:</label>
+          <input type="number" id="puntuacion">
+        </div>
+      </form>
+      <button class="btn jugar" id="btn-puntuacion">[ ENVIAR ]</button>
+      <button class="btn jugar" id="btn-mostrar-puntuacion">[ MOSTRAR PUNTUACIONES ]</button>
     </div>
 
     <!-- RANKINGS -->
-    <div class="vista ranking"></div>
+    <div class="vista activa bloque-manual ranking"></div>
 
     <!-- MANUAL -->
     <div class="vista activa bloque-manual fade-in">

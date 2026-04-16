@@ -1,287 +1,155 @@
 ============================================================
-           BACKLOG - "FEED THE WORLD"
-           Equipo: 3 compañeros | DAW 1 | JS + HTML + CSS
+           BACKLOG - CRUD "FEED THE WORLD"
+           Equipo: Victor, Alejandro, Carlos | DAW 1 | JS + HTML + CSS
 ============================================================
 
-LO PRIMERO QUE HAY QUE ENTREGAR AL PROFESOR
-------------------------------------------------------------
-1. Repositorio GitHub creado con los 3 miembros como colaboradores.
-2. README.md con: nombre del proyecto, descripcion, ODS elegido y reparto de tareas.
-3. Rama "main" limpia + ramas de trabajo por funcionalidad creadas.
-4. Primer commit con estructura base: index.html, style.css, script.js (vacios pero enlazados).
-5. Pantalla de inicio funcional como prueba de que el proyecto arranca.
+OBJETIVO:
+Implementar un CRUD completo para gestionar jugadores y puntuaciones,
+incluyendo navegación entre vistas para una experiencia de usuario fluida.
 
 ------------------------------------------------------------
-EPICA 0 - CONFIGURACION INICIAL
+ CRUD DE JUGADORES Y PUNTUACIONES
 ------------------------------------------------------------
 
-HU-01 | Crear repositorio
-  Como equipo, quiero tener un repositorio en GitHub con los 3 miembros
-  para poder trabajar en ramas y hacer seguimiento del codigo.
-  Tareas:
-    [ ] Crear repo en GitHub llamado "feed-the-world"
-    [ ] Aniadir a los 3 companeros como colaboradores
-    [ ] Crear rama main y rama develop
-    [ ] Subir estructura base: index.html, style.css, script.js
-
-HU-02 | Estructura base del proyecto
-  Como desarrollador, quiero tener los 3 archivos enlazados correctamente
-  para que el proyecto funcione desde el inicio.
-  Tareas:
-    [ ] index.html con <link> a style.css y <script> a script.js
-    [ ] Comprobar que no hay errores en consola al abrir index.html
-    [ ] Primer commit y push a develop
-
-------------------------------------------------------------
-EPICA 1 - VISTAS Y NAVEGACION (minimo 5 vistas)
-------------------------------------------------------------
-
-HU-03 | Pantalla de inicio (Vista 1)
-  Como jugador, quiero ver una pantalla de inicio con el nombre del juego
-  y un boton para empezar.
-  Tareas:
-    [ ] Crear div id="pantalla-inicio" visible al cargar la pagina
-    [ ] Mostrar titulo "Feed the World"
-    [ ] Boton "Jugar" -> muestra pantalla de juego
-    [ ] Boton "Instrucciones" -> muestra pantalla de instrucciones
-    [ ] Boton "Puntuaciones" -> muestra pantalla CRUD
-
-HU-04 | Pantalla del juego (Vista 2)
-  Como jugador, quiero ver la zona de juego con los munecos
-  para poder jugar.
-  Tareas:
-    [ ] Crear div id="pantalla-juego" (oculto al inicio)
-    [ ] Mostrar canvas o zona de juego dentro de esta vista
-    [ ] Mostrar puntuacion y tiempo restante en pantalla
-    [ ] Boton "Menu" para volver al inicio
-
-HU-05 | Pantalla de puntuaciones - CRUD (Vista 3)
-  Como jugador, quiero ver y gestionar las puntuaciones
-  para saber quien ha jugado y que puntuacion tiene.
-  Tareas:
-    [ ] Crear div id="pantalla-puntuaciones" (oculto al inicio)
-    [ ] Mostrar tabla de jugadores y puntuaciones
-    [ ] Boton "Volver al inicio"
-
-HU-06 | Pantalla Game Over (Vista 4)
-  Como jugador, quiero ver una pantalla de fin de partida
-  con mi puntuacion y la opcion de guardarla.
-  Tareas:
-    [ ] Crear div id="pantalla-gameover" (oculto al inicio)
-    [ ] Mostrar puntuacion obtenida en la partida
-    [ ] Formulario para introducir nombre y guardar resultado
-    [ ] Boton "Jugar de nuevo" y boton "Ver puntuaciones"
-
-HU-07 | Pantalla de instrucciones (Vista 5)
-  Como jugador nuevo, quiero ver las instrucciones del juego
-  para saber como se juega antes de empezar.
-  Tareas:
-    [ ] Crear div id="pantalla-instrucciones" (oculto al inicio)
-    [ ] Explicar controles: mover con flechas, lanzar con espacio o clic
-    [ ] Mostrar objetivo del juego y conexion con el ODS 2
-    [ ] Boton "Volver al inicio"
-
-------------------------------------------------------------
-EPICA 2 - MECANICA DEL JUEGO
-------------------------------------------------------------
-
-HU-08 | Dibujar al personaje principal
-  Como jugador, quiero ver mi muneco en pantalla
-  para poder controlarlo.
-  Tareas:
-    [ ] Dibujar muneco lanzador con canvas 2D o div con CSS
-    [ ] Posicionarlo en la parte izquierda/inferior de la pantalla
-
-HU-09 | Mover al personaje con el teclado
-  Como jugador, quiero mover mi muneco con las flechas del teclado
-  para apuntar a los munecos hambrientos.
-  Tareas:
-    [ ] Detectar eventos keydown y keyup
-    [ ] Mover muneco izquierda/derecha con flechas
-    [ ] Limitar movimiento dentro del area de juego
-
-HU-10 | Lanzar comida con raton o teclado
-  Como jugador, quiero lanzar comida al pulsar ESPACIO o hacer clic
-  para alimentar a los munecos.
-  Tareas:
-    [ ] Al pulsar ESPACIO o clic: crear objeto "comida" en movimiento
-    [ ] Animar la trayectoria (movimiento recto o parabolico simple)
-    [ ] Eliminar la comida al salir del area o al impactar
-
-HU-11 | Dibujar munecos hambrientos
-  Como jugador, quiero ver varios munecos en pantalla
-  para saber a quien tengo que alimentar.
-  Tareas:
-    [ ] Crear array de munecos con posicion y nivel de hambre
-    [ ] Dibujarlos en pantalla con una barra de hambre visible (0-100)
-    [ ] Los munecos pueden moverse lentamente
-
-HU-12 | Detectar colision comida-muneco
-  Como jugador, quiero que al golpear un muneco con la comida
-  su barra de hambre suba.
-  Tareas:
-    [ ] Implementar deteccion de colision basica (rectangulos o circulos)
-    [ ] Al colisionar: subir barra de hambre del muneco impactado
-    [ ] Mostrar efecto visual al alimentar (cambio de color, mensaje)
-
-HU-13 | Sistema de puntuacion
-  Como jugador, quiero ganar puntos al alimentar munecos
-  para tener un objetivo en el juego.
-  Tareas:
-    [ ] Mostrar puntuacion actual en pantalla durante el juego
-    [ ] Sumar puntos al alimentar un muneco
-    [ ] Si la barra llega al 100%, el muneco queda satisfecho y desaparece
-
-HU-14 | Condicion de fin de partida
-  Como jugador, quiero que el juego termine al acabarse el tiempo
-  para saber cuando ha terminado mi turno.
-  Tareas:
-    [ ] Temporizador visible en pantalla (cuenta atras, ej: 60 segundos)
-    [ ] Al llegar a 0: mostrar pantalla Game Over con la puntuacion final
-    [ ] Pasar la puntuacion al formulario de guardado
-
-------------------------------------------------------------
-EPICA 3 - FORMULARIOS (rúbrica: todos los tipos de input)
-------------------------------------------------------------
-
-HU-15 | Formulario de registro de jugador
-  Como jugador, quiero introducir mis datos al guardar la puntuacion
-  para que quede registrado correctamente.
-  Tareas:
-    [ ] input type="text"    -> nombre del jugador
-    [ ] input type="hidden"  -> puntuacion (se rellena automaticamente)
-    [ ] input type="date"    -> fecha de la partida (se rellena automaticamente)
-    [ ] select               -> dificultad: Facil / Normal / Dificil
-    [ ] radio                -> control usado: Teclado / Raton
-    [ ] checkbox             -> acepto que mi puntuacion sea publica
-    [ ] input type="file"    -> subir avatar/foto del jugador
-    [ ] button               -> "Guardar puntuacion"
-    [ ] enlace <a>           -> "Ver todas las puntuaciones"
-
-------------------------------------------------------------
-EPICA 4 - CRUD DE JUGADORES Y PUNTUACIONES
-------------------------------------------------------------
-
-HU-16 | Insertar jugador y puntuacion (CREATE)
-  Como jugador, quiero guardar mi nombre y puntuacion
+HU-1| Insertar jugador y puntuación (CREATE)
+  Como jugador, quiero guardar mi nombre y puntuación
   para que quede registrado en la lista.
   Tareas:
-    [ ] Recoger datos del formulario HU-15
-    [ ] Guardar en array en memoria (o localStorage)
-    [ ] Mostrar confirmacion visual de guardado
-    [ ] Actualizar la tabla automaticamente
+    [ ] Crear formulario para registrar jugadores (nombre, edad, email, contraseña).
+    [ ] Crear formulario para registrar puntuaciones (nombre, puntuación, fecha).
+    [ ] Guardar datos en un Set (o estructura similar) en memoria.
+    [ ] Mostrar mensaje de confirmación al guardar.
+    [ ] Validar que los campos no estén vacíos.
 
-HU-17 | Listar jugadores y puntuaciones (READ)
+HU-2| Listar jugadores y puntuaciones (READ)
   Como jugador, quiero ver la tabla de todas las puntuaciones guardadas
   para compararme con otros jugadores.
   Tareas:
-    [ ] Mostrar tabla: posicion, nombre, puntuacion, dificultad, fecha
-    [ ] Ordenar por puntuacion de mayor a menor
-    [ ] Si no hay registros, mostrar mensaje "No hay puntuaciones aun"
+    [ ] Crear tabla para mostrar jugadores (ID, nombre, edad, email).
+    [ ] Crear tabla para mostrar puntuaciones (ID, nombre, puntuación, fecha).
+    [ ] Ordenar puntuaciones de mayor a menor.
+    [ ] Mostrar mensaje "No hay registros" si no hay datos.
 
-HU-18 | Modificar jugador (UPDATE)
+HU-3 | Modificar jugador (UPDATE)
   Como jugador, quiero poder editar mi nombre o datos
-  por si me equivoque al escribirlos.
+  por si me equivoqué al escribirlos.
   Tareas:
-    [ ] Boton "Editar" en cada fila de la tabla
-    [ ] Al pulsar: rellenar formulario de edicion con los datos actuales
-    [ ] Guardar cambios y actualizar la tabla
+    [ ] Añadir botón "Editar" en cada fila de la tabla de jugadores.
+    [ ] Al hacer clic, cargar los datos del jugador en un formulario de edición.
+    [ ] Guardar los cambios y actualizar la tabla.
+    [ ] Mostrar mensaje de confirmación al actualizar.
 
-HU-19 | Eliminar jugador (DELETE)
+HU-4 | Eliminar jugador (DELETE)
   Como jugador, quiero poder borrar un registro de la lista
-  para eliminar puntuaciones erroneas.
+  para eliminar datos incorrectos.
   Tareas:
-    [ ] Boton "Eliminar" en cada fila de la tabla
-    [ ] Pedir confirmacion antes de borrar
-    [ ] Eliminar del array y actualizar la tabla
+    [ ] Añadir botón "Eliminar" en cada fila de la tabla de jugadores.
+    [ ] Pedir confirmación antes de eliminar.
+    [ ] Eliminar el jugador del Set y actualizar la tabla.
+    [ ] Mostrar mensaje de confirmación al eliminar.
 
-HU-20 | Busqueda avanzada de jugadores (SEARCH)
+HU-5 | Búsqueda avanzada de jugadores (SEARCH)
   Como usuario, quiero buscar un jugador por nombre
-  para encontrar su puntuacion rapidamente.
+  para encontrar su puntuación rápidamente.
   Tareas:
-    [ ] Input de busqueda en la vista de puntuaciones
-    [ ] Filtrar tabla en tiempo real segun lo que se escribe
-    [ ] Si no hay resultados, mostrar "No se encontraron jugadores"
+    [ ] Añadir campo de búsqueda en la vista de jugadores.
+    [ ] Filtrar la tabla en tiempo real según el texto ingresado.
+    [ ] Mostrar mensaje "No se encontraron resultados" si no hay coincidencias.
 
-------------------------------------------------------------
-EPICA 5 - DRAG & DROP (rúbrica: interaccion)
-------------------------------------------------------------
-
-HU-21 | Reordenar puntuaciones con Drag & Drop
-  Como usuario, quiero poder arrastrar filas de la tabla para reordenarlas
-  para personalizar la vista de puntuaciones.
+HU-6 | Navegación entre vistas (NAVIGATION)
+  Como usuario, quiero moverme fácilmente entre las vistas de la aplicación
+  para acceder a las diferentes funcionalidades sin recargar la página.
   Tareas:
-    [ ] Hacer filas de la tabla arrastrables con draggable="true"
-    [ ] Implementar eventos: dragstart, dragover, drop
-    [ ] Actualizar el array de datos al soltar en nueva posicion
-    [ ] Efecto visual al arrastrar (resaltar fila destino)
+    [ ] Crear botones de navegación en el menú principal:
+        - "Registrar Jugador" (muestra formulario de registro).
+        - "Listar Jugadores" (muestra tabla de jugadores).
+        - "Registrar Puntuación" (muestra formulario de puntuaciones).
+        - "Ver Ranking" (muestra tabla de puntuaciones).
+    [ ] Ocultar todas las vistas al inicio, excepto la vista principal (menú).
+    [ ] Implementar lógica para mostrar/ocultar vistas al hacer clic en los botones.
+    [ ] Asegurar que solo una vista esté visible a la vez.
+    [ ] Añadir botón "Volver al menú" en todas las vistas para regresar al inicio.
 
 ------------------------------------------------------------
-EPICA 6 - ODS (Objetivo de Desarrollo Sostenible)
+ESTRUCTURA DE ARCHIVOS RECOMENDADA:
 ------------------------------------------------------------
-
-HU-22 | Conectar el juego con el ODS 2 - Hambre Cero
-  Como equipo, queremos que el juego tenga un mensaje social real
-  vinculado al ODS 2 de la ONU.
-  Tareas:
-    [ ] Mostrar en la pantalla de inicio una frase sobre el ODS 2
-    [ ] Incluir en instrucciones el objetivo del ODS 2
-    [ ] En el README explicar como el juego contribuye al ODS 2
-    [ ] El juego en si (alimentar munecos) es la metafora del ODS
-
-------------------------------------------------------------
-EPICA 7 - CALIDAD DE CODIGO (rúbrica: Clean Code)
-------------------------------------------------------------
-
-HU-23 | Aplicar MVC y buenas practicas
-  Como equipo, queremos que el codigo sea limpio y mantenible
-  para cumplir los criterios de la rubrica.
-  Tareas:
-    [ ] Separar logica en clases o modulos: Jugador, Comida, Juego (MVC)
-    [ ] Evitar codigo repetido: usar funciones reutilizables (DRY)
-    [ ] Variables con nombres descriptivos en camelCase
-    [ ] Comentar cada funcion explicando que hace y que devuelve
-    [ ] Revisar codigo antes de cada merge a develop
+/fuentes/
+  ├── js/
+  │   ├── modelos/
+  │   │   ├── clase-jugador.js
+  │   │  
+  │   │   ├── modelo-jugadores.js
+  │   │   
+  │   ├── controladores/
+  │   │   ├── controlador-jugadores.js
+  │   │   ├
+  │   │   └── controlador-vistas.js  <-- Nuevo controlador para navegación
+  │   └── app.js
+  ├── css/
+  │   └── style.css
+  └── index.html
 
 ------------------------------------------------------------
-EPICA 8 - GIT Y TRABAJO EN EQUIPO
+REPARTO DE TAREAS SUGERIDO (3 personas):
 ------------------------------------------------------------
-
-HU-24 | Gestion de ramas por funcionalidad
-  Como equipo, queremos usar Git correctamente
-  para que el profesor vea un buen flujo de trabajo colaborativo.
-  Tareas:
-    [ ] Crear una rama por cada epica o historia grande:
-          feature/juego-principal
-          feature/crud-puntuaciones
-          feature/formulario
-          feature/vistas-navegacion
-          feature/drag-and-drop
-    [ ] Commits frecuentes con mensajes claros en castellano
-    [ ] Pull Request de cada rama a develop antes de mergear
-    [ ] No trabajar directamente en main nunca
+- Alejandro: Implementar modelos (clase-jugador.js, modelo-jugadores.js,).
+- Carlos: Implementar controladores (controlador-jugadores.js,  controlador-vistas.js).
+- Victor: Integrar todo en app.js y conectar con el DOM (index.html + style.css).
 
 ------------------------------------------------------------
-REPARTO DE TAREAS SUGERIDO (3 personas)
+CHECKLIST FINAL ANTES DE ENTREGAR:
 ------------------------------------------------------------
+  [ ] CRUD de jugadores funcional (CREATE, READ, UPDATE, DELETE, SEARCH).
+  [ ] Navegación fluida entre vistas sin recargar la página.
+  [ ] Datos almacenados en memoria usando Set.
+  [ ] Interfaz limpia y funcional (tablas, formularios, botones).
+  [ ] Código organizado en clases y módulos (MVC).
+  [ ] Validaciones básicas en formularios.
+  [ ] Mensajes de confirmación para acciones importantes.
 
-  Persona A -> Epica 2 (Juego) + Epica 7 (Codigo limpio)
-  Persona B -> Epica 3 (Formularios) + Epica 4 (CRUD)
-  Persona C -> Epica 1 (Vistas) + Epica 5 (Drag&Drop) + Epica 6 (ODS)
 
-  Los 3 juntos -> Epica 0 (Configuracion) + Epica 8 (Git)
 
-------------------------------------------------------------
-CHECKLIST FINAL ANTES DE ENTREGAR
-------------------------------------------------------------
-  [ ] 5 vistas funcionando con navegacion entre ellas
-  [ ] Formulario con todos los tipos de input de la rubrica
-  [ ] CRUD completo: insertar, listar, editar, eliminar, buscar
-  [ ] Drag & Drop funcionando en la tabla
-  [ ] Juego jugable de principio a fin
-  [ ] Codigo con MVC, DRY, comentarios y nombres semanticos
-  [ ] ODS presente y explicado en el proyecto
-  [ ] Ramas usadas correctamente en Git
-  [ ] README completo en el repositorio
 
-============================================================
+
+
+--------------------------------------------------------------------------
+                                                                          
+  /*                                                                      
+    // ===== BOTONES =====                                                
+    const btnRegistro = document.querySelector(".registro");              
+    const btnContacto = document.querySelector(".contacto");
+    const btnJugar = document.querySelector(".jugar");
+    const btnRanking = document.querySelector(".rank");
+    // ===== VISTAS =====
+    const vistaRegistro = document.querySelector("#vista-registro");
+    const vistaContacto = document.querySelector("#vista-contacto");
+    const vistaManual = document.querySelector(".bloque-manual");
+    // ===== FUNCIÓN: OCULTAR TODAS =====
+    function ocultarVistas() {
+        document.querySelectorAll(".vista").forEach(v => {
+            v.classList.remove("activa");
+        });
+    }
+    // ===== EVENTOS =====
+    // REGISTRO
+    btnRegistro.addEventListener("click", () => {
+        ocultarVistas();
+        vistaRegistro.classList.add("activa");
+    });
+    // CONTACTO
+    btnContacto.addEventListener("click", () => {
+        ocultarVistas();
+        vistaContacto.classList.add("activa");
+    });
+    // JUGAR
+    btnJugar.addEventListener("click", () => {
+        ocultarVistas();
+        alert("Aquí irá el juego ");
+    });
+    // RANKING
+    btnRanking.addEventListener("click", () => {
+        ocultarVistas();
+        alert("Aquí irá el ranking ");
+    });
+    //Fin HU1
+    */
