@@ -11,7 +11,7 @@ class App {
         // Obtener referencia al boton de mostrar jugadores
         this.#btnMostrarJugadores = document.querySelector('#btn-mostrar-jugadores');
 
-        // Configurar evento para mostrar jugadores
+        //  Configurar evento para mostrar jugadores
         this.#btnMostrarJugadores.addEventListener('click', () => {
             this.#controladorJugadores.mostrarJugadores();
         });
