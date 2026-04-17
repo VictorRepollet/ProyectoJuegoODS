@@ -54,7 +54,7 @@ a:hover { text-decoration: underline; }
 .vista{
   display: none;
 }
-.vista.activa{
+.activa{
   display: block;
 }
 
@@ -423,11 +423,6 @@ form textarea {
   resize: vertical;
 }
 
-form button[type="submit"],
-form button[type="button"] {
-  align-self: flex-start;
-  margin-top: 0.5rem;
-}
 
 /* ── Botones de acción en tablas ──────────────────────────── */
 button.accion {
@@ -507,4 +502,16 @@ table td:last-child {
 #filtro-jugadores:focus {
   outline: none;
   border-color: var(--verde);
+}
+
+/* ── Tipo de mensaje en línea ────────────────────────────── */
+.tipo-mensaje-inline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ── Mensaje vacío de jugadores ─────────────────────────── */
+#mensaje-vacio-jugadores {
+  display: none;
 }

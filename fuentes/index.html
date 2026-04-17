@@ -24,7 +24,6 @@
 
     <!-- BOTONES SUPERIORES -->
     <div class="top-auth fade-in">
-      <button class="btn-auth" id="btn-login">[ LOGIN ]</button>
       <button class="btn-auth" id="btn-registro">[ REGISTRO ]</button>
       <button class="btn-auth" id="btn-contacto-nav">[ CONTACTO ]</button>
       <button class="btn-auth" id="btn-editar-perfil">[ PERFIL ]</button>
@@ -52,7 +51,7 @@
     <hr class="sep fade-in">
 
     <!-- VISTA REGISTRO -->
-    <div class="vista activa bloque-manual fade-in" id="vista-registro">
+    <div class="vista bloque-manual fade-in" id="registro">
 
       <div class="terminal-header">
         <div class="punto rojo"></div>
@@ -71,8 +70,8 @@
         </div>
 
         <div>
-          <label for="edad">edad:</label>
-          <input type="number" id="edad" min="1" max="120" required>
+          <label for="age">edad:</label>
+          <input type="number" id="age" min="1" max="120" required>
         </div>
 
         <div>
@@ -93,7 +92,7 @@
     </div>
 
     <!-- VISTA EDITAR PERFIL -->
-    <div class="vista activa bloque-manual fade-in" id="vista-editar">
+    <div class="vista bloque-manual fade-in" id="editar">
 
       <div class="terminal-header">
         <div class="punto rojo"></div>
@@ -138,7 +137,7 @@
     </div>
 
     <!-- VISTA CONTACTO -->
-    <div class="vista activa bloque-manual fade-in" id="vista-contacto">
+    <div class="vista bloque-manual fade-in" id="contacto">
 
       <div class="terminal-header">
         <div class="punto rojo"></div>
@@ -181,19 +180,16 @@
           </select>
         </div>
 
-        <div>
+        <div class="tipo-mensaje-inline">
           <label>Tipo de mensaje:</label>
-
-          <input type="radio" id="info" name="tipo" value="info">
-          <label for="info">Info</label>
-
-          <input type="radio" id="bug" name="tipo" value="bug">
-          <label for="bug">Bug</label>
-        </div>
-
+          
+          <label for="info">Info:</label>
+          <input type="radio" id="info" value="info">
+          <label for="bug">Bug:</label>
+          <input type="radio" id="bug" value="bug">
         <div>
-          <input type="checkbox" id="terminos">
           <label for="terminos">Acepto los términos</label>
+           <input type="checkbox" id="terminos">
         </div>
       </form>
       <div>
@@ -204,7 +200,7 @@
     </div>
 
     <!-- VISTA JUGADORES -->
-    <div class="vista activa bloque-manual fade-in" id="vista-jugadores">
+    <div class="vista bloque-manual fade-in" id="jugadores">
 
       <div class="terminal-header">
         <div class="punto rojo"></div>
@@ -222,25 +218,32 @@
           </select>
         </div>
 
+        <div>
+          <label for="busqueda-jugadores">Buscar:</label>
+          <input type="text" id="busqueda-jugadores" placeholder="Buscar...">
+        </div>
+
+        <p id="mensaje-vacio-jugadores">No hay jugadores registrados.</p>
+
         <table id="tabla-jugadores">
           <thead>
             <tr>
               <th>Nombre</th>
               <th>Email</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
-            <!-- Aquí se llenarán los jugadores con JS -->
           </tbody>
         </table>
       </div>
     </div>
 
     <!-- JUEGO -->
-    <div class="vista activa juego"></div>
+    <div class="vista juego" id="juego"></div>
 
     <!-- PUNTUACIONES -->
-    <div class="vista activa bloque-manual ">
+    <div class="vista bloque-manual ">
       <div class="terminal-header">
         <div class="punto rojo"></div>
         <div class="punto amarillo"></div>
@@ -263,8 +266,18 @@
     </div>
 
     <!-- RANKINGS -->
-    <div class="vista activa bloque-manual ranking"></div>
+    <div class="vista bloque-manual ranking" id="ranking">
+      <div class="terminal-header">
+        <div class="punto rojo"></div>
+        <div class="punto amarillo"></div>
+        <div class="punto verde"></div>
+        <span>ranking - system</span>
+      </div>
+      <div id="cuerpo-ranking" class="terminal-body">
 
+      </div>
+    </div>
+    
     <!-- MANUAL -->
     <div class="vista activa bloque-manual fade-in">
 

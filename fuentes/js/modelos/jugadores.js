@@ -3,14 +3,14 @@ export default class Jugador {
 
     #id;
     #nombre;
-    #edad;
+    #age;
     #email;
     #password;
 
-    constructor(nombre, edad, email, password) {
+    constructor(nombre, age, email, password) {
         this.#id = ++Jugador.ultimoId;
         this.#nombre = nombre;
-        this.#edad = edad;
+        this.#age = age;
         this.#email = email;
         this.#password = password;
     }
@@ -24,7 +24,7 @@ export default class Jugador {
     }
 
     getEdad() {
-        return this.#edad;
+        return this.#age;
     }
 
     getEmail() {
@@ -39,8 +39,8 @@ export default class Jugador {
         this.#nombre = nombre;
     }
 
-    setEdad(edad) {
-        this.#edad = edad;
+    setEdad(age) {
+        this.#age= age;
     }
 
     setEmail(email) {

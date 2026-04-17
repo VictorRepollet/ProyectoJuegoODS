@@ -11,19 +11,19 @@ export default class ModeloJugadores {
     }
 
     listar() {
-        return this.#jugadores;
+        return Array.from(this.#jugadores);
     }
 
     obtenerPorId(id) {
         return this.listar().find(jugador => jugador.getId() == id);
     }
 
-    actualizar(id, nombre, edad, email, password) {
+    actualizar(id, nombre, age, email, password) {
         const jugadores = this.listar();
         const index = jugadores.findIndex(jugador => jugador.getId() == id);
         if (index !== -1) {
             jugadores[index].setNombre(nombre);
-            jugadores[index].setEdad(edad);
+            jugadores[index].setEdad(age);
             jugadores[index].setEmail(email);
             jugadores[index].setPassword(password);
             this.#jugadores = new Set(jugadores);

@@ -1,22 +1,33 @@
-import ControladorJugadores from './controladores/controlador-jugadores.js';
+import ControladorJugadores from "./js/controladores/controlador-jugadores.js";
+import VistaContacto from "./js/vistas/vista-contacto.js";
+import VistaPuntuaciones from "./js/vistas/vista-puntuaciones.js";
 
 class App {
     #controladorJugadores;
-    #btnMostrarJugadores;
+    #vistaContacto;
+    #vistaPuntuaciones;
 
     constructor() {
-        // Inicializar controladores
+        // Inicializar controlador
         this.#controladorJugadores = new ControladorJugadores();
 
-        // Obtener referencia al boton de mostrar jugadores
-        this.#btnMostrarJugadores = document.querySelector('#btn-mostrar-jugadores');
+        // Inicializar vistas
+        this.#vistaContacto = new VistaContacto();
+        this.#vistaPuntuaciones = new VistaPuntuaciones();
 
-        //  Configurar evento para mostrar jugadores
-        this.#btnMostrarJugadores.addEventListener('click', () => {
-            this.#controladorJugadores.mostrarJugadores();
-        });
+        // Mostrar todas las vistas
+        this.mostrarTodasLasVistas();
     }
 
+    mostrarTodasLasVistas() {
+        // Añadir clase activa a todas las vistas
+        const todasLasVistas = document.querySelectorAll('.vista');
+        todasLasVistas.forEach(vista => vista.classList.add('activa'));
+
+        // Llamar a métodos para mostrar contenido
+        this.#controladorJugadores.mostrarJugadores();
+        this.#vistaPuntuaciones.mostrarPuntuaciones();
+    }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
