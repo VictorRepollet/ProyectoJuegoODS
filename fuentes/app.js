@@ -1,41 +1,35 @@
-//US1- Carlos Soriano
-// Esperar a que cargue todo
-document.addEventListener("DOMContentLoaded", () => {
-    // ===== BOTONES =====
-    const btnRegistro = document.querySelector(".registro");
-    const btnContacto = document.querySelector(".contacto");
-    const btnJugar = document.querySelector(".jugar");
-    const btnRanking = document.querySelector(".rank");
-    // ===== VISTAS =====
-    const vistaRegistro = document.querySelector("#vista-registro");
-    const vistaContacto = document.querySelector("#vista-contacto");
-    const vistaManual = document.querySelector(".bloque-manual");
-    // ===== FUNCIÓN: OCULTAR TODAS =====
-    function ocultarVistas() {
-        document.querySelectorAll(".vista").forEach(v => {
-            v.classList.remove("activa");
-        });
+import ControladorJugadores from "./js/controladores/controlador-jugadores.js";
+import VistaContacto from "./js/vistas/vista-contacto.js";
+import VistaPuntuaciones from "./js/vistas/vista-puntuaciones.js";
+
+class App {
+    #controladorJugadores;
+    #vistaContacto;
+    #vistaPuntuaciones;
+
+    constructor() {
+        // Inicializar controlador
+        this.#controladorJugadores = new ControladorJugadores();
+
+        // Inicializar vistas
+        this.#vistaContacto = new VistaContacto();
+        this.#vistaPuntuaciones = new VistaPuntuaciones();
+
+        // Mostrar todas las vistas
+        this.mostrarTodasLasVistas();
     }
-    // ===== EVENTOS =====
-    // REGISTRO
-    btnRegistro.addEventListener("click", () => {
-        ocultarVistas();
-        vistaRegistro.classList.add("activa");
-    });
-    // CONTACTO
-    btnContacto.addEventListener("click", () => {
-        ocultarVistas();
-        vistaContacto.classList.add("activa");
-    });
-    // JUGAR
-    btnJugar.addEventListener("click", () => {
-        ocultarVistas();
-        alert("Aquí irá el juego ");
-    });
-    // RANKING
-    btnRanking.addEventListener("click", () => {
-        ocultarVistas();
-        alert("Aquí irá el ranking ");
-    });
-    //Fin HU1
+
+    mostrarTodasLasVistas() {
+        // Añadir clase activa a todas las vistas
+        const todasLasVistas = document.querySelectorAll('.vista');
+        todasLasVistas.forEach(vista => vista.classList.add('activa'));
+
+        // Llamar a métodos para mostrar contenido
+        this.#controladorJugadores.mostrarJugadores();
+        this.#vistaPuntuaciones.mostrarPuntuaciones();
+    }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    new App();
 });

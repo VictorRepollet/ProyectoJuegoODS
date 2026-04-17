@@ -24,10 +24,10 @@
 
     <!-- BOTONES SUPERIORES -->
     <div class="top-auth fade-in">
-      <button class="btn-auth vista activa" id="btn-login">[ LOGIN ]</button>
-      <button class="btn-auth vista activa registro" id="btn-registro">[ REGISTRO ]</button>
-      <button class="btn-auth contacto" id="btn-contacto-nav">[ CONTACTO ]</button>
-      <button class="btn-auth vista" id="btn-editar-perfil">[ PERFIL ]</button>
+      <button class="btn-auth" id="btn-registro">[ REGISTRO ]</button>
+      <button class="btn-auth" id="btn-contacto-nav">[ CONTACTO ]</button>
+      <button class="btn-auth" id="btn-editar-perfil">[ PERFIL ]</button>
+      <button class="btn-auth" id="btn-mostrar-jugadores">[ MOSTRAR JUGADORES ]</button>
     </div>
 
     <!-- BLOQUE JUEGO -->
@@ -51,7 +51,7 @@
     <hr class="sep fade-in">
 
     <!-- VISTA REGISTRO -->
-    <div class="vista fade-in" id="vista-registro">
+    <div class="vista bloque-manual fade-in" id="registro">
 
       <div class="terminal-header">
         <div class="punto rojo"></div>
@@ -70,8 +70,8 @@
         </div>
 
         <div>
-          <label for="edad">edad:</label>
-          <input type="number" id="edad" min="1" max="120" required>
+          <label for="age">edad:</label>
+          <input type="number" id="age" min="1" max="120" required>
         </div>
 
         <div>
@@ -83,18 +83,16 @@
           <label for="password">contraseña:</label>
           <input type="password" id="password" required>
         </div>
-
-        <div>
-          <button type="submit" class="btn jugar" id="btn-crear">
+      </form>
+      <div>
+          <button class="btn jugar" id="btn-crear">
             [ CREAR CUENTA ]
           </button>
         </div>
-
-      </form>
     </div>
 
     <!-- VISTA EDITAR PERFIL -->
-    <div class="vista fade-in" id="vista-editar">
+    <div class="vista bloque-manual fade-in" id="editar">
 
       <div class="terminal-header">
         <div class="punto rojo"></div>
@@ -126,22 +124,20 @@
           <label for="editar-password">contraseña:</label>
           <input type="password" id="editar-password">
         </div>
-
-        <div class="grupo-btn">
-          <button type="submit" class="btn jugar" id="btn-guardar">
+      </form>
+      <div class="grupo-btn">
+          <button class="btn jugar" id="btn-guardar">
             [ GUARDAR CAMBIOS ]
           </button>
 
-          <button type="button" class="btn rank" id="btn-eliminar">
+          <button class="btn rank" id="btn-eliminar">
             [ ELIMINAR PERFIL ]
           </button>
         </div>
-
-      </form>
     </div>
 
     <!-- VISTA CONTACTO -->
-    <div class="vista fade-in" id="vista-contacto">
+    <div class="vista bloque-manual fade-in" id="contacto">
 
       <div class="terminal-header">
         <div class="punto rojo"></div>
@@ -184,45 +180,104 @@
           </select>
         </div>
 
-        <div>
+        <div class="tipo-mensaje-inline">
           <label>Tipo de mensaje:</label>
-
-          <input type="radio" id="info" name="tipo" value="info">
-          <label for="info">Info</label>
-
-          <input type="radio" id="bug" name="tipo" value="bug">
-          <label for="bug">Bug</label>
-        </div>
-
+          
+          <label for="info">Info:</label>
+          <input type="radio" id="info" value="info">
+          <label for="bug">Bug:</label>
+          <input type="radio" id="bug" value="bug">
         <div>
-          <input type="checkbox" id="terminos">
           <label for="terminos">Acepto los términos</label>
+           <input type="checkbox" id="terminos">
         </div>
-
-        <div>
-          <button type="submit" class="btn jugar" id="btn-contacto">
+      </form>
+      <div>
+          <button class="btn jugar" id="btn-contacto">
             [ ENVIAR ]
           </button>
         </div>
+    </div>
 
-      </form>
+    <!-- VISTA JUGADORES -->
+    <div class="vista bloque-manual fade-in" id="jugadores">
+
+      <div class="terminal-header">
+        <div class="punto rojo"></div>
+        <div class="punto amarillo"></div>
+        <div class="punto verde"></div>
+        <span>lista de jugadores — system</span>
+      </div>
+
+      <div class="terminal-body">
+        <div>
+          <label for="filtro-jugadores">Filtrar por:</label>
+          <select id="filtro-jugadores">
+            <option value="nombre">Nombre</option>
+            <option value="email">Email</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="busqueda-jugadores">Buscar:</label>
+          <input type="text" id="busqueda-jugadores" placeholder="Buscar...">
+        </div>
+
+        <p id="mensaje-vacio-jugadores">No hay jugadores registrados.</p>
+
+        <table id="tabla-jugadores">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <!-- JUEGO -->
-    <div class="vista juego"></div>
+    <div class="vista juego" id="juego"></div>
 
     <!-- PUNTUACIONES -->
-    <div class="vista juego">
+    <div class="vista bloque-manual ">
+      <div class="terminal-header">
+        <div class="punto rojo"></div>
+        <div class="punto amarillo"></div>
+        <div class="punto verde"></div>
+        <span>puntuaciones — system</span>
+      </div>
       <h1 id="titulo-punt">[ PUNTUACION ]</h1>
-      <br/>
-      <p>Nombre: <input type="text" id="puntuacion"/></p>
-      <br/>
-      <button type="submit" class="btn jugar" id="btn-puntuacion">[ ENVIAR ]</button>
+      <form id="form-puntuaciones" class="terminal-body">
+        <div>
+          <label for="nombre-punt">Nombre:</label>
+          <input type="text" id="nombre-punt">
+        </div>
+        <div>
+          <label for="puntuacion">Puntuación:</label>
+          <input type="number" id="puntuacion">
+        </div>
+      </form>
+      <button class="btn jugar" id="btn-puntuacion">[ ENVIAR ]</button>
+      <button class="btn jugar" id="btn-mostrar-puntuacion">[ MOSTRAR PUNTUACIONES ]</button>
     </div>
 
     <!-- RANKINGS -->
-    <div class="vista ranking"></div>
+    <div class="vista bloque-manual ranking" id="ranking">
+      <div class="terminal-header">
+        <div class="punto rojo"></div>
+        <div class="punto amarillo"></div>
+        <div class="punto verde"></div>
+        <span>ranking - system</span>
+      </div>
+      <div id="cuerpo-ranking" class="terminal-body">
 
+      </div>
+    </div>
+    
     <!-- MANUAL -->
     <div class="vista activa bloque-manual fade-in">
 
