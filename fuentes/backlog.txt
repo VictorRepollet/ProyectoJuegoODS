@@ -1,0 +1,155 @@
+============================================================
+           BACKLOG - CRUD "FEED THE WORLD"
+           Equipo: Victor, Alejandro, Carlos | DAW 1 | JS + HTML + CSS
+============================================================
+
+OBJETIVO:
+Implementar un CRUD completo para gestionar jugadores y puntuaciones,
+incluyendo navegación entre vistas para una experiencia de usuario fluida.
+
+------------------------------------------------------------
+ CRUD DE JUGADORES Y PUNTUACIONES
+------------------------------------------------------------
+
+HU-1| Insertar jugador y puntuación (CREATE)
+  Como jugador, quiero guardar mi nombre y puntuación
+  para que quede registrado en la lista.
+  Tareas:
+    [ ] Crear formulario para registrar jugadores (nombre, edad, email, contraseña).
+    [ ] Crear formulario para registrar puntuaciones (nombre, puntuación, fecha).
+    [ ] Guardar datos en un Set (o estructura similar) en memoria.
+    [ ] Mostrar mensaje de confirmación al guardar.
+    [ ] Validar que los campos no estén vacíos.
+
+HU-2| Listar jugadores y puntuaciones (READ)
+  Como jugador, quiero ver la tabla de todas las puntuaciones guardadas
+  para compararme con otros jugadores.
+  Tareas:
+    [ ] Crear tabla para mostrar jugadores (ID, nombre, edad, email).
+    [ ] Crear tabla para mostrar puntuaciones (ID, nombre, puntuación, fecha).
+    [ ] Ordenar puntuaciones de mayor a menor.
+    [ ] Mostrar mensaje "No hay registros" si no hay datos.
+
+HU-3 | Modificar jugador (UPDATE)
+  Como jugador, quiero poder editar mi nombre o datos
+  por si me equivoqué al escribirlos.
+  Tareas:
+    [ ] Añadir botón "Editar" en cada fila de la tabla de jugadores.
+    [ ] Al hacer clic, cargar los datos del jugador en un formulario de edición.
+    [ ] Guardar los cambios y actualizar la tabla.
+    [ ] Mostrar mensaje de confirmación al actualizar.
+
+HU-4 | Eliminar jugador (DELETE)
+  Como jugador, quiero poder borrar un registro de la lista
+  para eliminar datos incorrectos.
+  Tareas:
+    [ ] Añadir botón "Eliminar" en cada fila de la tabla de jugadores.
+    [ ] Pedir confirmación antes de eliminar.
+    [ ] Eliminar el jugador del Set y actualizar la tabla.
+    [ ] Mostrar mensaje de confirmación al eliminar.
+
+HU-5 | Búsqueda avanzada de jugadores (SEARCH)
+  Como usuario, quiero buscar un jugador por nombre
+  para encontrar su puntuación rápidamente.
+  Tareas:
+    [ ] Añadir campo de búsqueda en la vista de jugadores.
+    [ ] Filtrar la tabla en tiempo real según el texto ingresado.
+    [ ] Mostrar mensaje "No se encontraron resultados" si no hay coincidencias.
+
+HU-6 | Navegación entre vistas (NAVIGATION)
+  Como usuario, quiero moverme fácilmente entre las vistas de la aplicación
+  para acceder a las diferentes funcionalidades sin recargar la página.
+  Tareas:
+    [ ] Crear botones de navegación en el menú principal:
+        - "Registrar Jugador" (muestra formulario de registro).
+        - "Listar Jugadores" (muestra tabla de jugadores).
+        - "Registrar Puntuación" (muestra formulario de puntuaciones).
+        - "Ver Ranking" (muestra tabla de puntuaciones).
+    [ ] Ocultar todas las vistas al inicio, excepto la vista principal (menú).
+    [ ] Implementar lógica para mostrar/ocultar vistas al hacer clic en los botones.
+    [ ] Asegurar que solo una vista esté visible a la vez.
+    [ ] Añadir botón "Volver al menú" en todas las vistas para regresar al inicio.
+
+------------------------------------------------------------
+ESTRUCTURA DE ARCHIVOS RECOMENDADA:
+------------------------------------------------------------
+/fuentes/
+  ├── js/
+  │   ├── modelos/
+  │   │   ├── clase-jugador.js
+  │   │  
+  │   │   ├── modelo-jugadores.js
+  │   │   
+  │   ├── controladores/
+  │   │   ├── controlador-jugadores.js
+  │   │   ├
+  │   │   └── controlador-vistas.js  <-- Nuevo controlador para navegación
+  │   └── app.js
+  ├── css/
+  │   └── style.css
+  └── index.html
+
+------------------------------------------------------------
+REPARTO DE TAREAS SUGERIDO (3 personas):
+------------------------------------------------------------
+- Alejandro: Implementar modelos (clase-jugador.js, modelo-jugadores.js,).
+- Carlos: Implementar controladores (controlador-jugadores.js,  controlador-vistas.js).
+- Victor: Integrar todo en app.js y conectar con el DOM (index.html + style.css).
+
+------------------------------------------------------------
+CHECKLIST FINAL ANTES DE ENTREGAR:
+------------------------------------------------------------
+  [ ] CRUD de jugadores funcional (CREATE, READ, UPDATE, DELETE, SEARCH).
+  [ ] Navegación fluida entre vistas sin recargar la página.
+  [ ] Datos almacenados en memoria usando Set.
+  [ ] Interfaz limpia y funcional (tablas, formularios, botones).
+  [ ] Código organizado en clases y módulos (MVC).
+  [ ] Validaciones básicas en formularios.
+  [ ] Mensajes de confirmación para acciones importantes.
+
+
+
+
+
+
+--------------------------------------------------------------------------
+                                                                          
+  /*                                                                      
+    // ===== BOTONES =====                                                
+    const btnRegistro = document.querySelector(".registro");              
+    const btnContacto = document.querySelector(".contacto");
+    const btnJugar = document.querySelector(".jugar");
+    const btnRanking = document.querySelector(".rank");
+    // ===== VISTAS =====
+    const vistaRegistro = document.querySelector("#vista-registro");
+    const vistaContacto = document.querySelector("#vista-contacto");
+    const vistaManual = document.querySelector(".bloque-manual");
+    // ===== FUNCIÓN: OCULTAR TODAS =====
+    function ocultarVistas() {
+        document.querySelectorAll(".vista").forEach(v => {
+            v.classList.remove("activa");
+        });
+    }
+    // ===== EVENTOS =====
+    // REGISTRO
+    btnRegistro.addEventListener("click", () => {
+        ocultarVistas();
+        vistaRegistro.classList.add("activa");
+    });
+    // CONTACTO
+    btnContacto.addEventListener("click", () => {
+        ocultarVistas();
+        vistaContacto.classList.add("activa");
+    });
+    // JUGAR
+    btnJugar.addEventListener("click", () => {
+        ocultarVistas();
+        alert("Aquí irá el juego ");
+    });
+    // RANKING
+    btnRanking.addEventListener("click", () => {
+        ocultarVistas();
+        alert("Aquí irá el ranking ");
+    });
+    //Fin HU1
+    */
