@@ -1,0 +1,25 @@
+/* ============================================================
+   vistas.css — Sistema de navegación entre vistas
+   ============================================================ */
+
+/* OCULTAR TODAS LAS VISTAS */
+.vista {
+  display: none !important;
+}
+
+/* MOSTRAR VISTA ACTIVA */
+.vista.activa {
+  display: block !important;
+}
+
+/* MANUAL E INICIO - Elementos de la pantalla inicial */
+#manual,
+#inicio {
+  display: none !important;
+}
+
+/* Mostrar manual e inicio SOLO cuando bloque-juego está activo */
+.page.mostrar-inicial #manual,
+.page.mostrar-inicial #inicio {
+  display: block !important;
+}

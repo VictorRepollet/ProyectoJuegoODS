@@ -50,14 +50,6 @@ body::before {
 a { color: var(--green); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
-/* ── Vistas ──────────────────────────────────────────────── */
-.vista{
-  display: none;
-}
-.activa{
-  display: block;
-}
-
 /* ── Topbar ──────────────────────────────────────────────── */
 .topbar {
   display: flex;
