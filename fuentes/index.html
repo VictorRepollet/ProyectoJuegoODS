@@ -6,6 +6,7 @@
   <title>Feed the World — ODS</title>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/vistas.css"/>
 </head>
 <body>
 
@@ -24,6 +25,7 @@
 
     <!-- BOTONES SUPERIORES -->
     <div class="top-auth fade-in">
+      <button class="btn-auth" id="btn-inicio">[ INICIO ]</button>
       <button class="btn-auth" id="btn-registro">[ REGISTRO ]</button>
       <button class="btn-auth" id="btn-contacto-nav">[ CONTACTO ]</button>
       <button class="btn-auth" id="btn-editar-perfil">[ PERFIL ]</button>
@@ -31,7 +33,7 @@
     </div>
 
     <!-- BLOQUE JUEGO -->
-    <div class="bloque-juego fade-in">
+    <div class="vista bloque-juego fade-in" id="bloque-juego">
       <div class="bloque-juego-inner">
         <div class="bloque-juego-texto">
           <h1>FEED THE<br>WORLD</h1>
@@ -184,12 +186,13 @@
           <label>Tipo de mensaje:</label>
           
           <label for="info">Info:</label>
-          <input type="radio" id="info" value="info">
+          <input type="radio" name="tipo-mensaje" id="info" value="info">
           <label for="bug">Bug:</label>
-          <input type="radio" id="bug" value="bug">
+          <input type="radio" name="tipo-mensaje" id="bug" value="bug">
+        </div>
         <div>
           <label for="terminos">Acepto los términos</label>
-           <input type="checkbox" id="terminos">
+           <input type="checkbox" name="terminos" id="terminos">
         </div>
       </form>
       <div>
@@ -243,7 +246,7 @@
     <div class="vista juego" id="juego"></div>
 
     <!-- PUNTUACIONES -->
-    <div class="vista bloque-manual ">
+    <div class="vista bloque-manual" id="puntuaciones">
       <div class="terminal-header">
         <div class="punto rojo"></div>
         <div class="punto amarillo"></div>
@@ -279,7 +282,7 @@
     </div>
     
     <!-- MANUAL -->
-    <div class="vista activa bloque-manual fade-in">
+    <div class="bloque-manual fade-in" id="manual">
 
       <div class="terminal-header">
         <div class="punto rojo"></div>
@@ -309,7 +312,7 @@
     <hr class="sep fade-in">
 
     <!-- FILA INFERIOR -->
-    <div class="fila-inferior fade-in">
+    <div class="fila-inferior fade-in" id="inicio">
 
       <div class="bloque-ods">
         <div class="label-seccion">// objetivos de desarrollo sostenible</div>
@@ -327,7 +330,6 @@
           🍽 personas alimentadas globalmente
           <strong id="contador-global">0</strong>
         </div>
-      </div>
 
       <div class="bloque-stats">
         <div class="label-seccion">// estado del proyecto</div>
@@ -361,15 +363,15 @@
 
   </div>
 
-  <footer>
-    <span class="f-star">*</span>
-    Feed the World · ODS 2 Hambre Cero · Hecho con HTML + CSS + JS puro ·
-    <a href="#">GitHub</a> · <a href="#">Docs</a>
-    <br>
-    <span class="f-comment">// no frameworks were harmed in the making of this page</span>
-  </footer>
+    <footer>
+      <span class="f-star">*</span>
+      Feed the World · ODS 2 Hambre Cero · Hecho con HTML + CSS + JS puro ·
+      <a href="#">GitHub</a> · <a href="#">Docs</a>
+      <br>
+      <span class="f-comment">// no frameworks were harmed in the making of this page</span>
+    </footer>
 
-  <script type="module" src="app.js"></script>
+    <script type="module" src="app.js"></script>
 
-</body>
+  </body>
 </html>
