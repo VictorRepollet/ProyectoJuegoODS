@@ -20,9 +20,9 @@ export default class ControladorJuegoDragDrop {
     ];
 
     static PERSONAS = [
-        { id: 'per-1', nombre: 'Ana',    pedido: '🍞' },
-        { id: 'per-2', nombre: 'Carlos', pedido: '🥦' },
-        { id: 'per-3', nombre: 'Lena',   pedido: '🍎' },
+        { id: 'per-1', nombre: 'Admed',    pedido: '🍞' },
+        { id: 'per-2', nombre: 'Dilan', pedido: '🥦' },
+        { id: 'per-3', nombre: 'Sadio Mané',   pedido: '🍎' },
     ];
 
     constructor() {
@@ -30,10 +30,15 @@ export default class ControladorJuegoDragDrop {
         this.#onGameOver = null;
 
         // Cuando termina el tiempo → notificar a App
-        this.#vista.onTiempoAgotado((puntuacion) => {
+        this.#vista.onTiempoAgotado((datos) => {
             if (this.#onGameOver) {
-                this.#onGameOver({ puntuacion });
+                this.#onGameOver(datos);
             }
+        });
+
+        // Cuando se hace una entrega → el controlador puede hacer lógica extra
+        this.#vista.onEntrega((idAlimento, idPersona, correcto) => {
+            // Lógica de entregas aquí si es necesaria
         });
     }
 

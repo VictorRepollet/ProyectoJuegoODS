@@ -6,7 +6,6 @@ export default class ModeloJugadores {
     }
 
     agregarJugador(jugador) {
-        console.log(jugador);
         this.#jugadores.add(jugador);
     }
 

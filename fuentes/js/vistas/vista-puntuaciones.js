@@ -63,6 +63,18 @@ export default class VistaPuntuaciones {
     }
 
     // ─────────────────────────────────────────────
+    //  GUARDAR PUNTUACIÓN DIRECTA (desde el juego)
+    // ─────────────────────────────────────────────
+    guardarPuntuacionDirecta(nombre, puntuacion) {
+        const nuevaPuntuacion = {
+            nombre,
+            puntuacion
+        };
+
+        this.#modeloPuntuaciones.agregarPuntuacion(nuevaPuntuacion);
+    }
+
+    // ─────────────────────────────────────────────
     //  MOSTRAR PUNTUACIONES
     // ─────────────────────────────────────────────
     mostrarPuntuaciones() {

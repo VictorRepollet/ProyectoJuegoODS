@@ -20,18 +20,23 @@ export default class VistaJuegoDragDrop {
     // ─── Callbacks hacia el controlador ──────────
     #onEntrega;           // (idAlimento, idPersona, correcto) => void
     #onTiempoAgotado;     // (puntuacion) => void
+    #onSolicitarNombre;   // (callback) => void para pedir nombre al jugador
 
     // ─── Estado local de UI ───────────────────────
     #intervaloTimer;
     #tiempoRestante;
     #puntuacion;
     #pausado = false;
+    #alimentosDisponibles;  // Catálogo de alimentos
+    #personasDisponibles;   // Catálogo de personas para regenerar
 
     constructor() {
         this.#tiempoRestante  = 60;
         this.#puntuacion      = 0;
         this.#onEntrega       = null;
         this.#onTiempoAgotado = null;
+        this.#alimentosDisponibles = [];
+        this.#personasDisponibles = [];
         this.#obtenerReferenciasIU();
         this.#configurarBotonesFijos();
     }
@@ -58,8 +63,9 @@ export default class VistaJuegoDragDrop {
     // ─────────────────────────────────────────────
     //  REGISTRAR CALLBACKS (los conecta el controlador)
     // ─────────────────────────────────────────────
-    onEntrega(callback)       { this.#onEntrega = callback; }
-    onTiempoAgotado(callback) { this.#onTiempoAgotado = callback; }
+    onEntrega(callback)           { this.#onEntrega = callback; }
+    onTiempoAgotado(callback)     { this.#onTiempoAgotado = callback; }
+    onSolicitarNombre(callback)   { this.#onSolicitarNombre = callback; }
 
     // ─────────────────────────────────────────────
     //  INICIAR — rellena las zonas y arranca el timer
@@ -68,6 +74,10 @@ export default class VistaJuegoDragDrop {
         this.#tiempoRestante = tiempo;
         this.#puntuacion     = 0;
         this.#pausado        = false;
+
+        // Guardar catálogos para regeneración
+        this.#alimentosDisponibles = alimentos;
+        this.#personasDisponibles = personas;
 
         // Ocultar game over por si venimos de una partida anterior
         this.#panelGameOver.style.display = 'none';
@@ -138,7 +148,34 @@ export default class VistaJuegoDragDrop {
     }
 
     // ─────────────────────────────────────────────
-    //  CONFIGURAR DROPZONES
+    //  REGENERAR ALIMENTOS — restaurar todos los alimentos
+    // ─────────────────────────────────────────────
+    #regenerarAlimentos() {
+        this.#renderizarAlimentos(this.#alimentosDisponibles);
+    }
+
+    // ─────────────────────────────────────────────
+    //  REGENERAR PERSONAS — crear nuevas con pedidos aleatorios VARIADOS
+    // ─────────────────────────────────────────────
+    #regenerarPersonas() {
+        // Obtener todos los tipos de alimentos disponibles
+        const tiposAlimentos = this.#alimentosDisponibles.map(a => a.tipo);
+        
+        // Mezclar los tipos de alimentos
+        const tiposBarajados = [...tiposAlimentos].sort(() => Math.random() - 0.5);
+        
+        // Asignar pedidos variados a cada persona
+        const personasReencontradas = this.#personasDisponibles.map((p, idx) => ({
+            ...p,
+            id: `per-${idx}-${Date.now()}`,
+            pedido: tiposBarajados[idx % tiposBarajados.length]  // Distribuir sin repetir
+        }));
+        
+        this.#renderizarPersonas(personasReencontradas);
+        this.#configurarDropzones();
+    }
+
+
     //  Patrón idéntico al del profesor: dragover → dragleave → drop
     // ─────────────────────────────────────────────
     #configurarDropzones() {
@@ -197,11 +234,27 @@ export default class VistaJuegoDragDrop {
         dropzone.appendChild(feedback);
         setTimeout(() => feedback.remove(), 1200);
 
-        elemAlimento.classList.add('desaparece');
-        setTimeout(() => elemAlimento.remove(), 400);
+        // ── ALIMENTO: Feedback visual SIN eliminarlo ──
+        elemAlimento.style.opacity = '0.3';
+        setTimeout(() => {
+            elemAlimento.style.opacity = '1';
+        }, 600);
 
         this.#puntuacion += 100;
         this.#actualizarHUD();
+
+        // ── BUCLE: Chequear si quedan personas sin alimentar ──
+        setTimeout(() => {
+            const personasActivas = document.querySelectorAll(
+                '.persona-dropzone:not(.satisfecha)'
+            );
+            
+            // Si no hay más personas, regenerar AMBAS (alimentos y personas)
+            if (personasActivas.length === 0) {
+                this.#regenerarAlimentos();
+                this.#regenerarPersonas();
+            }
+        }, 500);
     }
 
     #animarEntregaFallida(dropzone, elemAlimento) {
@@ -240,7 +293,6 @@ export default class VistaJuegoDragDrop {
             if (this.#tiempoRestante <= 0) {
                 clearInterval(this.#intervaloTimer);
                 this.#mostrarGameOver();
-                if (this.#onTiempoAgotado) this.#onTiempoAgotado(this.#puntuacion);
             }
         }, 1000);
     }
@@ -266,6 +318,20 @@ export default class VistaJuegoDragDrop {
             `🍽 ${entregados} PERSONAS ALIMENTADAS`;
 
         this.#panelGameOver.style.display = 'flex';
+
+        // ── Pedir nombre del jugador ──
+        const nombre = prompt('🏆 GAME OVER\n\n¿Cuál es tu nombre?\n\n(Para guardar tu puntuación)');
+        
+        if (nombre && nombre.trim()) {
+            // Notificar al controlador con nombre y puntuación
+            if (this.#onTiempoAgotado) {
+                this.#onTiempoAgotado({ 
+                    puntuacion: this.#puntuacion, 
+                    nombre: nombre.trim(),
+                    entregados: entregados
+                });
+            }
+        }
     }
 
     // ─────────────────────────────────────────────

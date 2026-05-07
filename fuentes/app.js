@@ -1,7 +1,7 @@
 import ControladorJugadores from "./js/controladores/controlador-jugadores.js";
 import VistaContacto from "./js/vistas/vista-contacto.js";
 import VistaPuntuaciones from "./js/vistas/vista-puntuaciones.js";
-import  Navegacion  from "./js/navegacion.js";
+import Navegacion from "./js/navegacion.js";
 import ControladorJuegoDragDrop from "./js/controladores/controlador-juego.js";
  
 
@@ -25,18 +25,21 @@ class App {
         // Configurar navegación
         this.#configurarNavegacion();
 
-
-    // Guardar puntuación automáticamente al terminar la partida
-    // (reutilizamos vistaPuntuaciones que ya tenéis)
-    // this.#vistaPuntuaciones.guardarPuntuacionDirecta('jugadorActual', puntuacion);
+        // Inicializar controlador del juego
         this.#controladorJuego = new ControladorJuegoDragDrop();
- 
-this.#controladorJuego.onGameOver(({ puntuacion }) => {
-    
-    
-});
 
-        
+        // Guardar puntuación automáticamente al terminar la partida
+        this.#controladorJuego.onGameOver(({ puntuacion, nombre, entregados }) => {
+            if (nombre) {
+                // Guardar puntuación en el modelo
+                this.#vistaPuntuaciones.guardarPuntuacionDirecta(nombre, puntuacion);
+                // Navegar al ranking automáticamente
+                setTimeout(() => {
+                    this.#navegacion.mostrarVista('ranking');
+                    this.#vistaPuntuaciones.mostrarPuntuaciones();
+                }, 500);
+            }
+        });
     }
 
     // ─────────────────────────────────────────────
@@ -57,6 +60,14 @@ this.#controladorJuego.onGameOver(({ puntuacion }) => {
             this.#controladorJuego.iniciar();
         });
         this.#navegacion.conectarBoton('btn-ranking', 'ranking', () => {
+            this.#vistaPuntuaciones.mostrarPuntuaciones();
+        });
+
+        // Botones dentro del juego (al terminar)
+        this.#navegacion.conectarBoton('btn-reiniciar-juego', 'juego', () => {
+            this.#controladorJuego.iniciar();
+        });
+        this.#navegacion.conectarBoton('btn-ir-ranking-go', 'ranking', () => {
             this.#vistaPuntuaciones.mostrarPuntuaciones();
         });
 
