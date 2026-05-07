@@ -1,5 +1,5 @@
 /* ============================================================
-   vistas.css — Sistema de navegación entre vistas
+    Sistema de navegación entre vistas
    ============================================================ */
 
 /* OCULTAR TODAS LAS VISTAS */
@@ -22,4 +22,294 @@
 .page.mostrar-inicial #manual,
 .page.mostrar-inicial #inicio {
   display: block !important;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Estilos del minijuego — 
+   ═════════════════════════════════════════════════════════ */
+
+/* ── Estructura general del campo ── */
+.juego-campo {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    padding: 16px;
+    min-height: 340px;
+}
+
+.juego-columna {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.juego-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: #444;
+    margin: 0 0 8px 0;
+    text-transform: lowercase;
+}
+
+.juego-centro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 8px;
+    gap: 12px;
+    min-width: 80px;
+}
+
+.juego-flecha {
+    font-size: 32px;
+    color: #00ff88;
+    text-shadow: 0 0 10px #00ff88;
+    animation: pulsar-flecha 1.2s ease-in-out infinite;
+}
+
+@keyframes pulsar-flecha {
+    0%, 100% { opacity: 1; transform: translateX(0); }
+    50%       { opacity: 0.4; transform: translateX(6px); }
+}
+
+.juego-hint {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    color: #555;
+    text-align: center;
+    line-height: 1.6;
+}
+
+/* ── HUD ── */
+.juego-hud {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 16px;
+    border-bottom: 1px solid #1a1a1a;
+    background: #0a0a0a;
+}
+
+.hud-item {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    color: #00ff88;
+}
+
+.hud-titulo {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 9px;
+    color: #333;
+    letter-spacing: 2px;
+}
+
+.hud-tiempo {
+    color: #00ff88;
+    transition: color 0.3s;
+}
+
+.hud-tiempo.tiempo-critico {
+    color: #ff4444;
+    animation: parpadeo 0.5s step-end infinite;
+}
+
+@keyframes parpadeo {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.2; }
+}
+
+/* ── Alimentos arrastrables (igual que .draggable del profesor) ── */
+.zona-alimentos {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.alimento-draggable {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: #111;
+    border: 1px solid #2a2a2a;
+    border-radius: 4px;
+    cursor: grab;
+    transition: border-color 0.2s, box-shadow 0.2s, opacity 0.2s;
+    user-select: none;
+}
+
+.alimento-draggable:hover {
+    border-color: #00ff88;
+    box-shadow: 0 0 8px rgba(0, 255, 136, 0.2);
+}
+
+.alimento-draggable.arrastrando {
+    opacity: 0.4;
+    cursor: grabbing;
+}
+
+.alimento-draggable.desaparece {
+    animation: desaparecer 0.4s ease forwards;
+}
+
+@keyframes desaparecer {
+    to { opacity: 0; transform: scale(0.5); }
+}
+
+.alimento-emoji  { font-size: 24px; }
+.alimento-nombre {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;
+    color: #ccc;
+}
+
+/* ── Personas / Dropzones (igual que .dropzone del profesor) ── */
+.zona-personas {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.persona-dropzone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 12px;
+    background: #111;
+    border: 2px dashed #2a2a2a;   /* mismo estilo dashed que el profesor */
+    border-radius: 6px;
+    transition: border-color 0.2s, background 0.2s;
+    position: relative;
+}
+
+/* highlight al hacer dragover (mismo nombre de clase que el profesor) */
+.persona-dropzone.highlight {
+    border-color: #00ff88;
+    background: rgba(0, 255, 136, 0.06);
+}
+
+.persona-dropzone.satisfecha {
+    border-color: #00ff88;
+    background: rgba(0, 255, 136, 0.08);
+    opacity: 0.7;
+}
+
+.persona-dropzone.error-shake {
+    animation: shake 0.4s ease;
+    border-color: #ff4444;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%       { transform: translateX(-6px); }
+    40%       { transform: translateX(6px); }
+    60%       { transform: translateX(-4px); }
+    80%       { transform: translateX(4px); }
+}
+
+.alimento-draggable.error-flash {
+    animation: flash-rojo 0.4s ease;
+}
+
+@keyframes flash-rojo {
+    0%, 100% { border-color: #2a2a2a; }
+    50%       { border-color: #ff4444; box-shadow: 0 0 8px #ff4444; }
+}
+
+/* ── Bocadillo de pedido ── */
+.persona-bocadillo {
+    position: relative;
+    background: #1a1a1a;
+    border: 1.5px solid #ffcc00;
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 20px;
+    line-height: 1;
+}
+
+.bocadillo-rabillo {
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 8px solid #ffcc00;
+}
+
+.persona-emoji  { font-size: 28px; }
+.persona-nombre {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: #888;
+}
+
+/* ── Feedback +100 flotante ── */
+.feedback-puntos {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Press Start 2P', monospace;
+    font-size: 12px;
+    color: #00ff88;
+    text-shadow: 0 0 8px #00ff88;
+    animation: flotar-puntos 1.2s ease forwards;
+    pointer-events: none;
+}
+
+@keyframes flotar-puntos {
+    0%   { opacity: 1; transform: translateX(-50%) translateY(0); }
+    100% { opacity: 0; transform: translateX(-50%) translateY(-30px); }
+}
+
+/* ── Botón de pausa ── */
+.juego-acciones {
+    display: flex;
+    justify-content: center;
+    padding: 12px 0 4px;
+}
+
+/* ── Pantalla Game Over ── */
+.gameover-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 24px;
+    text-align: center;
+    gap: 12px;
+}
+
+.gameover-titulo {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 28px;
+    color: #ff4444;
+    text-shadow: 0 0 20px #ff4444;
+    margin: 0;
+}
+
+.gameover-pts {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 14px;
+    color: #fff;
+    margin: 8px 0 0;
+}
+
+.gameover-ods {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 14px;
+    color: #00ff88;
+    margin: 0;
+}
+
+.gameover-ods-msg {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: #555;
+    margin: 0;
 }

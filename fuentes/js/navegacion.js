@@ -3,7 +3,7 @@
  * Maneja el cambio de vistas y los eventos de los botones
  */
 
-export class Navegacion {
+export default class Navegacion {
     constructor() {
         this.#inicializar();
     }

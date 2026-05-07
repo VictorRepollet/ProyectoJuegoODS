@@ -1,13 +1,16 @@
 import ControladorJugadores from "./js/controladores/controlador-jugadores.js";
 import VistaContacto from "./js/vistas/vista-contacto.js";
 import VistaPuntuaciones from "./js/vistas/vista-puntuaciones.js";
-import { Navegacion } from "./js/navegacion.js";
+import  Navegacion  from "./js/navegacion.js";
+import ControladorJuegoDragDrop from "./js/controladores/controlador-juego.js";
+ 
 
 class App {
     #controladorJugadores;
     #vistaContacto;
     #vistaPuntuaciones;
     #navegacion;
+    #controladorJuego;
 
     constructor() {
         
@@ -21,6 +24,17 @@ class App {
 
         // Configurar navegación
         this.#configurarNavegacion();
+
+
+    // Guardar puntuación automáticamente al terminar la partida
+    // (reutilizamos vistaPuntuaciones que ya tenéis)
+    // this.#vistaPuntuaciones.guardarPuntuacionDirecta('jugadorActual', puntuacion);
+        this.#controladorJuego = new ControladorJuegoDragDrop();
+ 
+this.#controladorJuego.onGameOver(({ puntuacion }) => {
+    
+    
+});
 
         
     }
@@ -39,7 +53,9 @@ class App {
         });
 
         // Botones del juego
-        this.#navegacion.conectarBoton('btn-jugar', 'juego');
+        this.#navegacion.conectarBoton('btn-jugar', 'juego', () => {
+            this.#controladorJuego.iniciar();
+        });
         this.#navegacion.conectarBoton('btn-ranking', 'ranking', () => {
             this.#vistaPuntuaciones.mostrarPuntuaciones();
         });

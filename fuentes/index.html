@@ -243,7 +243,84 @@
     </div>
 
     <!-- JUEGO -->
-    <div class="vista juego" id="juego"></div>
+    
+    <!-- VISTA JUEGO -->
+      <div class="vista juego" id="juego">
+
+          <!-- HUD: puntuación y temporizador -->
+          <div class="juego-hud" id="juego-hud">
+              <span class="hud-item" id="hud-puntos">PTS: 0</span>
+              <span class="hud-titulo">FEED THE WORLD</span>
+              <span class="hud-item hud-tiempo" id="hud-tiempo">⏱ 60s</span>
+          </div>
+
+          <!-- CAMPO DE JUEGO -->
+          <div class="juego-campo">
+
+              <!-- ZONA IZQUIERDA: alimentos arrastrables -->
+              <div class="juego-columna">
+                  <p class="juego-label">// recoge alimentos</p>
+                  <div class="zona-alimentos" id="zona-alimentos"></div>
+              </div>
+
+              <!-- ZONA CENTRAL: instrucción -->
+              <div class="juego-centro">
+                  <div class="juego-flecha">→</div>
+                  <p class="juego-hint">arrastra el alimento<br>correcto a cada persona</p>
+              </div>
+
+              <!-- ZONA DERECHA: personas (dropzones) -->
+              <div class="juego-columna">
+                  <p class="juego-label">// personas con hambre</p>
+                  <div class="zona-personas" id="zona-personas"></div>
+              </div>
+
+          </div>
+
+          <!-- BOTÓN PAUSA -->
+          <div class="juego-acciones">
+              <button class="btn rank" id="btn-pausa-juego">[ PAUSA ]</button>
+          </div>
+
+          <!-- PANTALLA GAME OVER (oculta hasta que termine la partida) -->
+          <div class="gameover-panel" id="gameover-panel" style="display:none;">
+              <h2 class="gameover-titulo">GAME OVER</h2>
+              <p class="gameover-pts" id="gameover-puntuacion">PUNTUACIÓN: 0</p>
+              <p class="gameover-ods" id="gameover-entregados">🍽 0 PERSONAS ALIMENTADAS</p>
+              <p class="gameover-ods-msg">Cada entrega cuenta para el ODS 2 — Hambre Cero</p>
+              <div class="grupo-btn" style="margin-top:24px;">
+                  <button class="btn jugar" id="btn-reiniciar-juego">[ JUGAR DE NUEVO ]</button>
+                  <button class="btn rank"  id="btn-ir-ranking-go">[ VER RANKING ]</button>
+              </div>
+          </div>
+
+      </div>
+
+
+      <!-- ═══════════════════════════════════════════════════════════
+          TEMPLATES — tarjetas generadas dinámicamente por el JS
+          Se clonan en la vista, nunca se muestran directamente
+          ═══════════════════════════════════════════════════════════ -->
+
+      <!-- Template: tarjeta de alimento arrastrable -->
+      <template id="template-alimento">
+          <div class="alimento-draggable" draggable="true">
+              <span class="alimento-emoji"></span>
+              <span class="alimento-nombre"></span>
+          </div>
+      </template>
+
+      <!-- Template: tarjeta de persona (dropzone) -->
+      <template id="template-persona">
+          <div class="persona-dropzone">
+              <div class="persona-bocadillo">
+                  <span class="bocadillo-pedido"></span>
+                  <div class="bocadillo-rabillo"></div>
+              </div>
+              <span class="persona-emoji">🧍</span>
+              <span class="persona-nombre"></span>
+          </div>
+      </template>
 
     <!-- PUNTUACIONES -->
     <div class="vista bloque-manual" id="puntuaciones">
