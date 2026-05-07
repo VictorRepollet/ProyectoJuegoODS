@@ -191,6 +191,54 @@ a:hover { text-decoration: underline; }
   color: var(--verde-osc);
 }
 
+.juego-panel {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.game-area {
+  width: 100%;
+  max-width: 640px;
+  height: 360px;
+  border: 1px solid var(--borde);
+  background: #020c05;
+  margin: 0 auto 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.game-area .player,
+.game-area .food,
+.game-area .obstacle {
+  position: absolute;
+  border-radius: 4px;
+}
+
+.game-area .player {
+  width: 32px;
+  height: 32px;
+  background: #50fa7b;
+}
+
+.game-area .food {
+  width: 18px;
+  height: 18px;
+  background: #8be9fd;
+  border-radius: 50%;
+}
+
+.game-area .obstacle {
+  width: 20px;
+  background: #ff5555;
+}
+
+.game-instrucciones {
+  color: var(--muted);
+  font-size: .85rem;
+  line-height: 1.5;
+}
+
 /* ── Separador ───────────────────────────────────────────── */
 .sep {
   border: none;

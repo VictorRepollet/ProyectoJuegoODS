@@ -2,12 +2,16 @@ import ControladorJugadores from "./js/controladores/controlador-jugadores.js";
 import VistaContacto from "./js/vistas/vista-contacto.js";
 import VistaPuntuaciones from "./js/vistas/vista-puntuaciones.js";
 import { Navegacion } from "./js/navegacion.js";
+import Juego from "./js/juego.js";
+import ModeloPuntuaciones from "./js/modelos/modelo-puntuaciones.js";
 
 class App {
     #controladorJugadores;
     #vistaContacto;
     #vistaPuntuaciones;
     #navegacion;
+    #juego;
+    #modeloPuntuaciones;
 
     constructor() {
         
@@ -17,7 +21,9 @@ class App {
         // Inicializar controlador y vistas
         this.#controladorJugadores = new ControladorJugadores();
         this.#vistaContacto = new VistaContacto();
-        this.#vistaPuntuaciones = new VistaPuntuaciones();
+        this.#modeloPuntuaciones = new ModeloPuntuaciones();
+        this.#vistaPuntuaciones = new VistaPuntuaciones(this.#modeloPuntuaciones);
+        this.#juego = new Juego(this.#vistaPuntuaciones);
 
         // Configurar navegación
         this.#configurarNavegacion();
@@ -39,7 +45,9 @@ class App {
         });
 
         // Botones del juego
-        this.#navegacion.conectarBoton('btn-jugar', 'juego');
+        this.#navegacion.conectarBoton('btn-jugar', 'juego', () => {
+            this.#juego.start();
+        });
         this.#navegacion.conectarBoton('btn-ranking', 'ranking', () => {
             this.#vistaPuntuaciones.mostrarPuntuaciones();
         });

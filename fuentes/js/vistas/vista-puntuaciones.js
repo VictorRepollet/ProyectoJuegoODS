@@ -11,8 +11,8 @@ export default class VistaPuntuaciones {
     #formPuntuaciones;
     #cuerpoRanking;
 
-    constructor() {
-        this.#modeloPuntuaciones = new ModeloPuntuaciones();
+    constructor(modeloPuntuaciones = new ModeloPuntuaciones()) {
+        this.#modeloPuntuaciones = modeloPuntuaciones;
         this.#obtenerReferenciasIU();
         this.#configurarEventos();
     }
@@ -65,6 +65,10 @@ export default class VistaPuntuaciones {
     // ─────────────────────────────────────────────
     //  MOSTRAR PUNTUACIONES
     // ─────────────────────────────────────────────
+    agregarPuntuacion(nombre, puntos) {
+        this.#modeloPuntuaciones.agregarPuntuacion({ nombre, puntuacion: puntos });
+    }
+
     mostrarPuntuaciones() {
         const puntuaciones = this.#modeloPuntuaciones.listarOrdenadasDesc();
 
