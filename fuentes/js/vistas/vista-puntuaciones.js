@@ -1,25 +1,56 @@
+/**
+ * vista-puntuaciones.js — Vista de puntuaciones y ranking
+ * 
+ * Gestiona la visualización del ranking de puntuaciones.
+ * Permite guardar nuevas puntuaciones y mostrarlas ordenadas de mayor a menor.
+ * 
+ * @author Alejandro, Carlos y Victor
+ * @version 1.0.0
+ */
+
 import ModeloPuntuaciones from '../modelos/modelo-puntuaciones.js';
 
+/**
+ * Vista que gestiona la presentación del ranking de puntuaciones
+ * Integra con el modelo de puntuaciones para almacenar y recuperar datos
+ */
 export default class VistaPuntuaciones {
+    /** @type {ModeloPuntuaciones} Instancia del modelo de puntuaciones */
     #modeloPuntuaciones;
 
-    // Referencias formulario puntuaciones
+    // ────────────────────────── Referencias formulario de puntuaciones
+    /** @type {HTMLInputElement} Campo para ingresar nombre en el ranking */
     #nombrePunt;
+    
+    /** @type {HTMLInputElement} Campo para ingresar puntuación */
     #puntuacion;
+    
+    /** @type {HTMLButtonElement} Botón para enviar nueva puntuación */
     #btnPuntuacion;
+    
+    /** @type {HTMLButtonElement} Botón para mostrar el ranking */
     #btnMostrarPuntuacion;
+    
+    /** @type {HTMLFormElement} Formulario para ingresar puntuaciones */
     #formPuntuaciones;
+    
+    /** @type {HTMLElement} Contenedor donde se renderiza la tabla de ranking */
     #cuerpoRanking;
 
+    /**
+     * Crea una nueva instancia de la vista de puntuaciones
+     * Inicializa el modelo, obtiene referencias del DOM y configura eventos
+     */
     constructor() {
         this.#modeloPuntuaciones = new ModeloPuntuaciones();
         this.#obtenerReferenciasIU();
         this.#configurarEventos();
     }
 
-    // ─────────────────────────────────────────────
-    //  REFERENCIAS AL DOM
-    // ─────────────────────────────────────────────
+    /**
+     * Obtiene referencias a todos los elementos del formulario y ranking
+     * @private
+     */
     #obtenerReferenciasIU() {
         this.#nombrePunt = document.querySelector('#nombre-punt');
         this.#puntuacion = document.querySelector('#puntuacion');
@@ -29,17 +60,19 @@ export default class VistaPuntuaciones {
         this.#cuerpoRanking = document.querySelector('#cuerpo-ranking');
     }
 
-    // ─────────────────────────────────────────────
-    //  EVENTOS
-    // ─────────────────────────────────────────────
+    /**
+     * Configura los event listeners de los botones
+     * @private
+     */
     #configurarEventos() {
         this.#btnPuntuacion.addEventListener('click', () => this.enviarPuntuacion());
         this.#btnMostrarPuntuacion.addEventListener('click', () => this.mostrarPuntuaciones());
     }
 
-    // ─────────────────────────────────────────────
-    //  ENVIAR PUNTUACIÓN
-    // ─────────────────────────────────────────────
+    /**
+     * Valida y guarda una puntuación ingresada manualmente
+     * @public
+     */
     enviarPuntuacion() {
         const nombre = this.#nombrePunt.value.trim();
         const puntos = parseInt(this.#puntuacion.value);
@@ -62,9 +95,14 @@ export default class VistaPuntuaciones {
         this.#formPuntuaciones.reset();
     }
 
-    // ─────────────────────────────────────────────
-    //  GUARDAR PUNTUACIÓN DIRECTA (desde el juego)
-    // ─────────────────────────────────────────────
+    /**
+     * Guarda una puntuación automáticamente al finalizar una partida
+     * Se ejecuta desde el controlador del juego
+     * 
+     * @param {string} nombre - Nombre del jugador que obtuvo la puntuación
+     * @param {number} puntuacion - Puntuación obtenida
+     * @public
+     */
     guardarPuntuacionDirecta(nombre, puntuacion) {
         const nuevaPuntuacion = {
             nombre,
@@ -74,9 +112,12 @@ export default class VistaPuntuaciones {
         this.#modeloPuntuaciones.agregarPuntuacion(nuevaPuntuacion);
     }
 
-    // ─────────────────────────────────────────────
-    //  MOSTRAR PUNTUACIONES
-    // ─────────────────────────────────────────────
+    /**
+     * Obtiene todas las puntuaciones y las muestra en una tabla ordenada
+     * La tabla está ordenada de mayor a menor puntuación
+     * Muestra mensaje si no hay puntuaciones registradas
+     * @public
+     */
     mostrarPuntuaciones() {
         const puntuaciones = this.#modeloPuntuaciones.listarOrdenadasDesc();
 

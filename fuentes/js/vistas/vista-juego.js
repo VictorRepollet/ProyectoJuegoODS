@@ -1,38 +1,75 @@
 /**
- * vista-juego-dragdrop.js — Mecánica de juego con Drag & Drop
- *   dragstart → guarda el id del alimento
- *   dragover  → previene el default para permitir drop
- *   drop      → comprueba si el alimento coincide con el pedido
- *
- * El HTML vive en index.html (vista #juego + templates).
- * Este archivo solo obtiene referencias, clona templates y añade eventos.
+ * vista-juego.js — Vista del juego Drag & Drop
+ * 
+ * Gestiona la presentación de alimentos y personas, temporizador y puntuación.
+ * Maneja eventos de arrastre y validación de entregas correctas/incorrectas.
+ * 
+ * El HTML se define en index.html usando templates (#template-alimento y #template-persona).
+ * Esta clase solo obtiene referencias, clona templates y agrega eventos dinámicos.
+ * 
+ * @author Alejandro, Carlos y Victor
+ * @version 1.0.0
  */
 
+/**
+ * Vista principal del juego 
+ * Gestiona UI, entrada del usuario, temporizador y puntuación
+ */
 export default class VistaJuegoDragDrop {
 
-    // ─── Referencias DOM ──────────────────────────
-    #zonaAlimentos;       // #zona-alimentos
-    #zonaPersonas;        // #zona-personas
-    #panelGameOver;       // #gameover-panel
-    #templateAlimento;    // <template id="template-alimento">
-    #templatePersona;     // <template id="template-persona">
+    // ────────────────────────────── Referencias DOM
+    /** @type {HTMLElement} Contenedor donde se renderizarán los alimentos arrastrables */
+    #zonaAlimentos;
+    
+    /** @type {HTMLElement} Contenedor donde se renderizarán las personas (dropzones) */
+    #zonaPersonas;
+    
+    /** @type {HTMLElement} Panel que se muestra cuando termina el juego */
+    #panelGameOver;
+    
+    /** @type {HTMLTemplateElement} Template HTML para clonar elementos de alimento */
+    #templateAlimento;
+    
+    /** @type {HTMLTemplateElement} Template HTML para clonar elementos de persona */
+    #templatePersona;
 
-    // ─── Callbacks hacia el controlador ──────────
-    #onEntrega;           // (idAlimento, idPersona, correcto) => void
-    #onTiempoAgotado;     // (puntuacion) => void
-    #onSolicitarNombre;   // (callback) => void para pedir nombre al jugador
+    // ────────────────────────────── Callbacks hacia el controlador
+    /** @type {Function} Callback que se ejecuta cuando hay una entrega (correcta o incorrecta) */
+    #onEntrega;
+    
+    /** @type {Function} Callback que se ejecuta cuando se agota el tiempo */
+    #onTiempoAgotado;
+    
+    /** @type {Function} Callback para solicitar el nombre del jugador al terminar */
+    #onSolicitarNombre;
 
-    // ─── Estado local de UI ───────────────────────
+    // ────────────────────────────── Estado local de la UI
+    /** @type {number} Intervalo del temporizador */
     #intervaloTimer;
+    
+    /** @type {number} Tiempo restante en segundos */
     #tiempoRestante;
+    
+    /** @type {number} Puntuación acumulada en la partida */
     #puntuacion;
-    #pausado = false;
-    #alimentosDisponibles;  // Catálogo de alimentos
-    #personasDisponibles;   // Catálogo de personas para regenerar
+    
+    /** @type {boolean} Indica si el juego está pausado */
+    #pausado;
+    
+    /** @type {Array} Catálogo de alimentos disponibles para regeneración */
+    #alimentosDisponibles;
+    
+    /** @type {Array} Catálogo de personas disponibles para regeneración */
+    #personasDisponibles;
 
+    /**
+     * Crea una nueva instancia de la vista del juego
+     * Inicializa variables, obtiene referencias del DOM y configura botones
+     */
     constructor() {
         this.#tiempoRestante  = 60;
         this.#puntuacion      = 0;
+        this.#pausado         = false;
         this.#onEntrega       = null;
         this.#onTiempoAgotado = null;
         this.#alimentosDisponibles = [];
@@ -41,9 +78,11 @@ export default class VistaJuegoDragDrop {
         this.#configurarBotonesFijos();
     }
 
-    // ─────────────────────────────────────────────
-    //  REFERENCIAS AL DOM  (mismo patrón que el resto del proyecto)
-    // ─────────────────────────────────────────────
+    /**
+     * Obtiene referencias a todos los elementos del DOM necesarios para el juego
+     * Sigue el mismo patrón que el resto del proyecto
+     * @private
+     */
     #obtenerReferenciasIU() {
         this.#zonaAlimentos    = document.querySelector('#zona-alimentos');
         this.#zonaPersonas     = document.querySelector('#zona-personas');
@@ -52,24 +91,43 @@ export default class VistaJuegoDragDrop {
         this.#templatePersona  = document.querySelector('#template-persona');
     }
 
-    // ─────────────────────────────────────────────
-    //  BOTONES fijos del HTML (pausa, reiniciar...)
-    // ─────────────────────────────────────────────
+    /**
+     * Configura los event listeners de los botones fijos del HTML
+     * Estos botones están presentes en el HTML, no se generan dinámicamente
+     * @private
+     */
     #configurarBotonesFijos() {
         document.querySelector('#btn-pausa-juego')
             ?.addEventListener('click', () => this.#alternarPausa());
     }
 
-    // ─────────────────────────────────────────────
-    //  REGISTRAR CALLBACKS (los conecta el controlador)
-    // ─────────────────────────────────────────────
+    /**
+     * Registra un callback que se ejecutará cuando haya una entrega
+     * @param {Function} callback - Función que recibe (idAlimento, idPersona, correcto)
+     */
     onEntrega(callback)           { this.#onEntrega = callback; }
+    
+    /**
+     * Registra un callback que se ejecutará cuando se agote el tiempo
+     * @param {Function} callback - Función que recibe los datos finales del juego
+     */
     onTiempoAgotado(callback)     { this.#onTiempoAgotado = callback; }
+    
+    /**
+     * Registra un callback para solicitar el nombre del jugador
+     * @param {Function} callback - Función para pedir nombre al jugador
+     */
     onSolicitarNombre(callback)   { this.#onSolicitarNombre = callback; }
 
-    // ─────────────────────────────────────────────
-    //  INICIAR — rellena las zonas y arranca el timer
-    // ─────────────────────────────────────────────
+    /**
+     * Inicia una nueva partida de juego
+     * Renderiza alimentos y personas, configura dropzones y arranca el temporizador
+     * 
+     * @param {Array} alimentos - Lista de alimentos disponibles
+     * @param {Array} personas - Lista de personas que piden alimentos
+     * @param {number} [tiempo=60] - Tiempo en segundos para la partida
+     * @public
+     */
     iniciar(alimentos, personas, tiempo = 60) {
         this.#tiempoRestante = tiempo;
         this.#puntuacion     = 0;
@@ -89,11 +147,14 @@ export default class VistaJuegoDragDrop {
         this.#actualizarHUD();
     }
 
-    // ─────────────────────────────────────────────
-    //  RENDERIZAR ALIMENTOS
-    //  Clona el <template id="template-alimento"> del HTML
-    //  y rellena los datos — sin escribir HTML aquí
-    // ─────────────────────────────────────────────
+    /**
+     * Renderiza los alimentos en la zona de alimentos
+     * Clona el template HTML y crea elementos arrastrables dinámicamente
+     * Asigna eventos dragstart y dragend a cada alimento
+     * 
+     * @param {Array} alimentos - Lista de alimentos a renderizar
+     * @private
+     */
     #renderizarAlimentos(alimentos) {
         this.#zonaAlimentos.innerHTML = '';
 
@@ -125,10 +186,14 @@ export default class VistaJuegoDragDrop {
         });
     }
 
-    // ─────────────────────────────────────────────
-    //  RENDERIZAR PERSONAS
-    //  Clona el <template id="template-persona"> del HTML
-    // ─────────────────────────────────────────────
+    /**
+     * Renderiza las personas en la zona de personas
+     * Clona el template HTML y crea dropzones dinámicamente
+     * Cada persona muestra su pedido (emoji del alimento que desea)
+     * 
+     * @param {Array} personas - Lista de personas a renderizar
+     * @private
+     */
     #renderizarPersonas(personas) {
         this.#zonaPersonas.innerHTML = '';
 
@@ -147,16 +212,21 @@ export default class VistaJuegoDragDrop {
         });
     }
 
-    // ─────────────────────────────────────────────
-    //  REGENERAR ALIMENTOS — restaurar todos los alimentos
-    // ─────────────────────────────────────────────
+    /**
+     * Regenera todos los alimentos cuando se agotan
+     * Vuelve a renderizar los alimentos del catálogo original
+     * @private
+     */
     #regenerarAlimentos() {
         this.#renderizarAlimentos(this.#alimentosDisponibles);
     }
 
-    // ─────────────────────────────────────────────
-    //  REGENERAR PERSONAS — crear nuevas con pedidos aleatorios VARIADOS
-    // ─────────────────────────────────────────────
+    /**
+     * Regenera las personas con pedidos aleatorios variados
+     * Asegura que no haya repeticiones de pedidos
+     * Se ejecuta cuando todas las personas han sido alimentadas
+     * @private
+     */
     #regenerarPersonas() {
         // Obtener todos los tipos de alimentos disponibles
         const tiposAlimentos = this.#alimentosDisponibles.map(a => a.tipo);
@@ -176,8 +246,12 @@ export default class VistaJuegoDragDrop {
     }
 
 
-    //  Patrón idéntico al del profesor: dragover → dragleave → drop
-    // ─────────────────────────────────────────────
+    /**
+     * Configura los eventos Drag & Drop en las dropzones (personas)
+     * Implementa dragover, dragleave y drop para validar entregas
+     * Patrón: dragover → dragleave → drop
+     * @private
+     */
     #configurarDropzones() {
         const dropzones = document.querySelectorAll('.persona-dropzone');
 
@@ -220,9 +294,14 @@ export default class VistaJuegoDragDrop {
         });
     }
 
-    // ─────────────────────────────────────────────
-    //  ANIMACIONES de feedback
-    // ─────────────────────────────────────────────
+    /**
+     * Anima una entrega correcta
+     * Muestra feedback visual positivo, suma puntos y regenera si es necesario
+     * 
+     * @param {HTMLElement} dropzone - Elemento de la persona que recibe el alimento
+     * @param {HTMLElement} elemAlimento - Elemento del alimento arrastrado
+     * @private
+     */
     #animarEntregaCorrecta(dropzone, elemAlimento) {
         dropzone.classList.add('satisfecha');
         dropzone.querySelector('.persona-bocadillo').style.display = 'none';
@@ -257,6 +336,14 @@ export default class VistaJuegoDragDrop {
         }, 500);
     }
 
+    /**
+     * Anima una entrega fallida
+     * Muestra feedback visual negativo y resta puntos
+     * 
+     * @param {HTMLElement} dropzone - Elemento de la persona que rechaza el alimento
+     * @param {HTMLElement} elemAlimento - Elemento del alimento arrastrado
+     * @private
+     */
     #animarEntregaFallida(dropzone, elemAlimento) {
         dropzone.classList.add('error-shake');
         setTimeout(() => dropzone.classList.remove('error-shake'), 500);
@@ -268,9 +355,11 @@ export default class VistaJuegoDragDrop {
         this.#actualizarHUD();
     }
 
-    // ─────────────────────────────────────────────
-    //  HUD — actualizar puntos y tiempo
-    // ─────────────────────────────────────────────
+    /**
+     * Actualiza el HUD (pantalla de información) con puntos y tiempo
+     * Cambia el color del tiempo cuando entra en zona crítica (<= 10s)
+     * @private
+     */
     #actualizarHUD() {
         const elPuntos = document.querySelector('#hud-puntos');
         const elTiempo = document.querySelector('#hud-tiempo');
@@ -282,9 +371,11 @@ export default class VistaJuegoDragDrop {
         }
     }
 
-    // ─────────────────────────────────────────────
-    //  TEMPORIZADOR
-    // ─────────────────────────────────────────────
+    /**
+     * Inicia el temporizador que decuenta el tiempo
+     * Decrementa cada segundo y muestra Game Over cuando llega a 0
+     * @private
+     */
     #arrancarTemporizador() {
         this.#intervaloTimer = setInterval(() => {
             if (this.#pausado) return;
@@ -297,18 +388,29 @@ export default class VistaJuegoDragDrop {
         }, 1000);
     }
 
+    /**
+     * Alterna el estado de pausa del juego
+     * Cambia el texto del botón y pausa el temporizador
+     * @private
+     */
     #alternarPausa() {
         this.#pausado = !this.#pausado;
         const btn = document.querySelector('#btn-pausa-juego');
         if (btn) btn.textContent = this.#pausado ? '[ CONTINUAR ]' : '[ PAUSA ]';
     }
 
+    /**
+     * Detiene el temporizador inmediatamente
+     * @public
+     */
     detener() { clearInterval(this.#intervaloTimer); }
 
-    // ─────────────────────────────────────────────
-    //  GAME OVER — muestra el panel que ya existe en el HTML
-    //  Solo actualiza los datos dinámicos (puntuación y personas)
-    // ─────────────────────────────────────────────
+    /**
+     * Muestra el panel de Game Over al terminar el tiempo
+     * Actualiza puntuación y número de personas alimentadas
+     * Solicita el nombre del jugador para guardar la puntuación
+     * @private
+     */
     #mostrarGameOver() {
         const entregados = document.querySelectorAll('.persona-dropzone.satisfecha').length;
 
@@ -334,18 +436,35 @@ export default class VistaJuegoDragDrop {
         }
     }
 
-    // ─────────────────────────────────────────────
-    //  API pública
-    // ─────────────────────────────────────────────
+    /**
+     * Agrega un alimento individual a la zona de alimentos
+     * Útil para agregar elementos dinámicamente durante el juego
+     * 
+     * @param {Object} alimento - Alimento a agregar
+     * @public
+     */
     agregarAlimento(alimento) {
         this.#renderizarAlimentos([alimento]);
         this.#configurarDropzones();
     }
 
+    /**
+     * Agrega una persona individual a la zona de personas
+     * Útil para agregar elementos dinámicamente durante el juego
+     * 
+     * @param {Object} persona - Persona a agregar
+     * @public
+     */
     agregarPersona(persona) {
         this.#renderizarPersonas([persona]);
         this.#configurarDropzones();
     }
 
+    /**
+     * Obtiene la puntuación actual del jugador
+     * 
+     * @returns {number} Puntuación acumulada
+     * @public
+     */
     getPuntuacion() { return this.#puntuacion; }
 }
