@@ -1,109 +1,211 @@
 ============================================================
-           BACKLOG - CRUD "FEED THE WORLD"
-           Equipo: Victor, Alejandro, Carlos | DAW 1 | JS + HTML + CSS
+           BACKLOG — FEED THE WORLD
+           Equipo: Víctor, Alejandro, Carlos | DAW 1 | JS + HTML + CSS
 ============================================================
 
 OBJETIVO:
-Implementar un CRUD completo para gestionar jugadores y puntuaciones,
-incluyendo navegación entre vistas para una experiencia de usuario fluida.
+Juego educativo ODS con mecánica Drag & Drop, CRUD de jugadores,
+sistema de puntuaciones y navegación entre vistas en una SPA.
+
+============================================================
+ SPRINT 1 — ESTRUCTURA BASE Y CRUD
+============================================================
 
 ------------------------------------------------------------
- CRUD DE JUGADORES Y PUNTUACIONES
+HU-1 | Menú principal y pantalla de inicio                 [✅ COMPLETADO]
 ------------------------------------------------------------
+Como usuario, quiero ver una pantalla de inicio clara con
+acceso a todas las secciones de la aplicación.
 
-HU-1| Insertar jugador y puntuación (CREATE)
-  Como jugador, quiero guardar mi nombre y puntuación
-  para que quede registrado en la lista.
-  Tareas:
-    [ ] Crear formulario para registrar jugadores (nombre, edad, email, contraseña).
-    [ ] Crear formulario para registrar puntuaciones (nombre, puntuación, fecha).
-    [ ] Guardar datos en un Set (o estructura similar) en memoria.
-    [ ] Mostrar mensaje de confirmación al guardar.
-    [ ] Validar que los campos no estén vacíos.
-
-HU-2| Listar jugadores y puntuaciones (READ)
-  Como jugador, quiero ver la tabla de todas las puntuaciones guardadas
-  para compararme con otros jugadores.
-  Tareas:
-    [ ] Crear tabla para mostrar jugadores (ID, nombre, edad, email).
-    [ ] Crear tabla para mostrar puntuaciones (ID, nombre, puntuación, fecha).
-    [ ] Ordenar puntuaciones de mayor a menor.
-    [ ] Mostrar mensaje "No hay registros" si no hay datos.
-
-HU-3 | Modificar jugador (UPDATE)
-  Como jugador, quiero poder editar mi nombre o datos
-  por si me equivoqué al escribirlos.
-  Tareas:
-    [ ] Añadir botón "Editar" en cada fila de la tabla de jugadores.
-    [ ] Al hacer clic, cargar los datos del jugador en un formulario de edición.
-    [ ] Guardar los cambios y actualizar la tabla.
-    [ ] Mostrar mensaje de confirmación al actualizar.
-
-HU-4 | Eliminar jugador (DELETE)
-  Como jugador, quiero poder borrar un registro de la lista
-  para eliminar datos incorrectos.
-  Tareas:
-    [ ] Añadir botón "Eliminar" en cada fila de la tabla de jugadores.
-    [ ] Pedir confirmación antes de eliminar.
-    [ ] Eliminar el jugador del Set y actualizar la tabla.
-    [ ] Mostrar mensaje de confirmación al eliminar.
-
-HU-5 | Búsqueda avanzada de jugadores (SEARCH)
-  Como usuario, quiero buscar un jugador por nombre
-  para encontrar su puntuación rápidamente.
-  Tareas:
-    [ ] Añadir campo de búsqueda en la vista de jugadores.
-    [ ] Filtrar la tabla en tiempo real según el texto ingresado.
-    [ ] Mostrar mensaje "No se encontraron resultados" si no hay coincidencias.
-
-HU-6 | Navegación entre vistas (NAVIGATION)
-  Como usuario, quiero moverme fácilmente entre las vistas de la aplicación
-  para acceder a las diferentes funcionalidades sin recargar la página.
-  Tareas:
-    [ ] Crear botones de navegación en el menú principal:
-        - "Registrar Jugador" (muestra formulario de registro).
-        - "Listar Jugadores" (muestra tabla de jugadores).
-        - "Registrar Puntuación" (muestra formulario de puntuaciones).
-        - "Ver Ranking" (muestra tabla de puntuaciones).
-    [ ] Ocultar todas las vistas al inicio, excepto la vista principal (menú).
-    [ ] Implementar lógica para mostrar/ocultar vistas al hacer clic en los botones.
-    [ ] Asegurar que solo una vista esté visible a la vez.
-    [ ] Añadir botón "Volver al menú" en todas las vistas para regresar al inicio.
+Tareas:
+  [✅] Diseñar pantalla de inicio con logo, título y botones de navegación.
+  [✅] Mostrar manual / instrucciones en la vista inicial.
+  [✅] Conectar botones del menú al sistema de navegación.
 
 ------------------------------------------------------------
-ESTRUCTURA DE ARCHIVOS RECOMENDADA:
+HU-2 | Registro de jugador (CREATE)                        [✅ COMPLETADO]
 ------------------------------------------------------------
-/fuentes/
-  ├── js/
-  │   ├── modelos/
-  │   │   ├── clase-jugador.js
-  │   │  
-  │   │   ├── modelo-jugadores.js
-  │   │   
-  │   ├── controladores/
-  │   │   ├── controlador-jugadores.js
-  │   │   ├
-  │   │   └── controlador-vistas.js  <-- Nuevo controlador para navegación
-  │   └── app.js
-  ├── css/
-  │   └── style.css
-  └── index.html
+Como usuario, quiero registrar un nuevo jugador con mis datos
+para tener un perfil en el sistema.
+
+Tareas:
+  [✅] Formulario con campos: nombre, edad, email, contraseña.
+  [✅] Validación de campos vacíos y edad fuera de rango (1–120).
+  [✅] Guardar jugador en un Set usando ModeloJugadores.
+  [✅] Mensaje de confirmación al registrar.
+  [✅] Limpiar formulario tras el registro.
 
 ------------------------------------------------------------
-REPARTO DE TAREAS SUGERIDO (3 personas):
+HU-3 | Editar perfil de jugador (UPDATE)                   [✅ COMPLETADO]
 ------------------------------------------------------------
-- Alejandro: Implementar modelos (clase-jugador.js, modelo-jugadores.js,).
-- Carlos: Implementar controladores (controlador-jugadores.js,  controlador-vistas.js).
-- Victor: Integrar todo en app.js y conectar con el DOM (index.html + style.css).
+Como jugador, quiero editar mis datos si me equivoqué
+al registrarme.
+
+Tareas:
+  [✅] Formulario de edición con campos precargados.
+  [✅] Campo oculto con el ID del jugador seleccionado.
+  [✅] Botón "Editar" en cada fila de la tabla de jugadores.
+  [✅] Actualizar datos en el modelo al guardar.
+  [✅] Mensaje de confirmación tras la actualización.
 
 ------------------------------------------------------------
-CHECKLIST FINAL ANTES DE ENTREGAR:
+HU-4 | Listar jugadores (READ)                             [✅ COMPLETADO]
 ------------------------------------------------------------
-  [ ] CRUD de jugadores funcional (CREATE, READ, UPDATE, DELETE, SEARCH).
-  [ ] Navegación fluida entre vistas sin recargar la página.
-  [ ] Datos almacenados en memoria usando Set.
-  [ ] Interfaz limpia y funcional (tablas, formularios, botones).
-  [ ] Código organizado en clases y módulos (MVC).
-  [ ] Validaciones básicas en formularios.
-  [ ] Mensajes de confirmación para acciones importantes.
---------------------------------------------------------------------------
+Como administrador, quiero ver la lista de todos los jugadores
+registrados en una tabla.
+
+Tareas:
+  [✅] Tabla con columnas: nombre, email, acciones.
+  [✅] Mensaje "No hay jugadores registrados" cuando la lista está vacía.
+  [✅] Botones de Editar y Eliminar en cada fila.
+
+------------------------------------------------------------
+HU-5 | Dar de baja a un jugador (DELETE)                   [✅ COMPLETADO]
+------------------------------------------------------------
+Como administrador, quiero eliminar un jugador del sistema.
+
+Tareas:
+  [✅] Botón "Eliminar" en cada fila de la tabla.
+  [✅] Diálogo de confirmación antes de eliminar.
+  [✅] Eliminar jugador del Set y refrescar la tabla.
+  [✅] Mensaje de confirmación tras la eliminación.
+
+------------------------------------------------------------
+HU-6 | Búsqueda avanzada de jugadores (SEARCH)             [✅ COMPLETADO]
+------------------------------------------------------------
+Como administrador, quiero buscar jugadores por nombre o email
+para encontrarlos rápidamente.
+
+Tareas:
+  [✅] Campo de búsqueda con filtrado en tiempo real.
+  [✅] Selector para elegir el campo de búsqueda (nombre / email).
+  [✅] Ordenación alfabética según el campo seleccionado.
+  [✅] Mensaje "No se encontraron resultados" si no hay coincidencias.
+
+------------------------------------------------------------
+HU-7 | Navegación entre vistas                             [✅ COMPLETADO]
+------------------------------------------------------------
+Como usuario, quiero moverme entre las secciones de la app
+sin recargar la página.
+
+Tareas:
+  [✅] Clase Navegacion con método mostrarVista(id).
+  [✅] Solo una vista activa a la vez (clase CSS .activa).
+  [✅] Botones del menú conectados mediante conectarBoton().
+  [✅] Redirección automática al ranking al terminar una partida.
+  [✅] Vista inicial especial con clase CSS mostrar-inicial.
+
+------------------------------------------------------------
+HU-8 | Estructura MVC y módulos ES6                        [✅ COMPLETADO]
+------------------------------------------------------------
+Como equipo, queremos mantener el código organizado en capas
+para facilitar el mantenimiento y la escalabilidad.
+
+Tareas:
+  [✅] Separación en carpetas: controladores/, modelos/, vistas/.
+  [✅] Módulos con import/export.
+  [✅] Punto de entrada único en app.js.
+  [✅] Uso de campos privados (#) en todas las clases.
+
+============================================================
+ SPRINT 2 — JUEGO Y PUNTUACIONES
+============================================================
+
+------------------------------------------------------------
+HU-9 | Mecánica Drag & Drop                                [✅ COMPLETADO]
+------------------------------------------------------------
+Como jugador, quiero arrastrar alimentos y soltarlos sobre
+las personas correctas para alimentarlas.
+
+Tareas:
+  [✅] Elementos arrastrables con eventos dragstart / dragend.
+  [✅] Zonas de drop con dragover / dragleave / drop.
+  [✅] Comprobación de coincidencia alimento–pedido.
+  [✅] Feedback visual: clase satisfecha (correcto) / error-shake (incorrecto).
+  [✅] Texto flotante +100 en entregas correctas.
+  [✅] Regeneración automática de alimentos y personas al completar una ronda.
+
+------------------------------------------------------------
+HU-10 | Temporizador de partida                            [✅ COMPLETADO]
+------------------------------------------------------------
+Como jugador, quiero que la partida dure 60 segundos
+para añadir tensión al juego.
+
+Tareas:
+  [✅] Cuenta regresiva visible en el HUD.
+  [✅] Indicador visual de tiempo crítico (≤ 10 segundos).
+  [✅] Detener el temporizador al llegar a 0.
+  [✅] Botón de pausa / continuar.
+
+------------------------------------------------------------
+HU-11 | Pedidos de comida aleatorios                       [✅ COMPLETADO]
+------------------------------------------------------------
+Como jugador, quiero que las personas pidan alimentos distintos
+en cada ronda para que el juego sea variado.
+
+Tareas:
+  [✅] Barajado Fisher-Yates de alimentos y personas al iniciar.
+  [✅] Asignación de pedidos variados al regenerar personas.
+  [✅] Bocadillo de pedido visible sobre cada persona.
+
+------------------------------------------------------------
+HU-12 | Pantalla de Game Over                              [✅ COMPLETADO]
+------------------------------------------------------------
+Como jugador, quiero ver mi puntuación final al terminar
+la partida y tener opción de reiniciar.
+
+Tareas:
+  [✅] Panel de Game Over con puntuación y personas alimentadas.
+  [✅] Prompt para introducir el nombre del jugador.
+  [✅] Botón "Reiniciar" para volver a jugar.
+  [✅] Botón "Ver Ranking" para ir al ranking.
+
+------------------------------------------------------------
+HU-13 | Sistema de puntuaciones (CREATE + READ)            [✅ COMPLETADO]
+------------------------------------------------------------
+Como jugador, quiero que mi puntuación se guarde y aparezca
+en el ranking global.
+
+Tareas:
+  [✅] ModeloPuntuaciones con agregarPuntuacion() y listarOrdenadasDesc().
+  [✅] Guardado automático desde App al recibir el callback onGameOver.
+  [✅] Formulario manual de inserción de puntuaciones.
+  [✅] Tabla de ranking ordenada de mayor a menor.
+  [✅] Mensaje si no hay puntuaciones registradas.
+
+------------------------------------------------------------
+HU-14 | Formulario de contacto                             [✅ COMPLETADO]
+------------------------------------------------------------
+Como usuario, quiero enviar un mensaje al equipo de desarrollo
+para reportar errores o pedir información.
+
+Tareas:
+  [✅] Formulario con campos: nombre, email, fecha, descripción, género, tipo, términos.
+  [✅] Validación de todos los campos obligatorios.
+  [✅] Envío simulado con alert (sin modelo ni persistencia).
+
+------------------------------------------------------------
+HU-15 | Refactorización y calidad de código (DRY)          [✅ COMPLETADO]
+------------------------------------------------------------
+Como equipo, queremos evitar código duplicado para mantener
+el proyecto limpio y fácil de mantener.
+
+Tareas:
+  [✅] Clase Navegacion centraliza toda la lógica de vistas.
+  [✅] Templates HTML para alimentos y personas (sin HTML en JS).
+
+============================================================
+CHECKLIST FINAL
+============================================================
+
+  [✅] CRUD de jugadores funcional (CREATE, READ, UPDATE, DELETE, SEARCH).
+  [✅] Sistema de navegación entre vistas sin recarga.
+  [✅] Juego Drag & Drop con temporizador y puntuación.
+  [✅] Guardado automático de puntuación al finalizar partida.
+  [✅] Ranking global ordenado.
+  [✅] Estructura MVC con módulos ES6.
+  [✅] Validaciones en todos los formularios implementados.
+  [✅] Uso de campos privados (#) en todas las clases.
+  [✅] Trabajo con ramas por funcionalidad en Git.
+
+============================================================-------------

@@ -1,46 +1,99 @@
-import Jugador from '../modelos/jugadores.js'; //  nombre de archivo corregido
+/**
+ * controlador-jugadores.js — Controlador de gestión de jugadores
+ * 
+ * Maneja las operaciones CRUD (Crear, Leer, Actualizar, Eliminar) de jugadores.
+ * Conecta la interfaz de usuario con el modelo de datos de jugadores.
+ * Incluye búsqueda, filtrado y renderizado dinámico de tabla.
+ * 
+ * @author Alejandro, Carlos y Victor
+ * @version 1.0.0
+ */
+
+import Jugador from '../modelos/jugadores.js';
 import ModeloJugadores from '../modelos/modelo-jugadores.js';
 
+/**
+ * Controlador principal para la gestión de jugadores
+ * Implementa la lógica CRUD y la interfaz de usuario
+ */
 export default class ControladorJugadores {
+    /** @type {ModeloJugadores} Instancia del modelo de datos de jugadores */
     #modeloJugadores;
 
-    // Referencias formulario registro
+    // ────────────────────────── Referencias del formulario de registro
+    /** @type {HTMLInputElement} Campo de nombre en el formulario de registro */
     #nombre;
-    #age; //en ingles porque sino sale un color raro
+    
+    /** @type {HTMLInputElement} Campo de edad en el formulario de registro */
+    #age;
+    
+    /** @type {HTMLInputElement} Campo de email en el formulario de registro */
     #email;
+    
+    /** @type {HTMLInputElement} Campo de contraseña en el formulario de registro */
     #password;
 
-    // Referencias formulario editar
+    // ────────────────────────── Referencias del formulario de edición
+    /** @type {HTMLInputElement} Campo de nombre en el formulario de edición */
     #editarNombre;
+    
+    /** @type {HTMLInputElement} Campo de edad en el formulario de edición */
     #editarEdad;
+    
+    /** @type {HTMLInputElement} Campo de email en el formulario de edición */
     #editarEmail;
+    
+    /** @type {HTMLInputElement} Campo de contraseña en el formulario de edición */
     #editarPassword;
+    
+    /** @type {HTMLInputElement} Campo oculto con el ID del jugador a editar */
     #editarPlayerId;
 
-    // Botones
+    // ────────────────────────── Elementos de botones
+    /** @type {HTMLButtonElement} Botón para registrar nuevo jugador */
     #btnRegistro;
+    
+    /** @type {HTMLButtonElement} Botón para guardar cambios del jugador */
     #btnGuardar;
+    
+    /** @type {HTMLButtonElement} Botón para eliminar jugador */
     #btnEliminar;
 
-    // Formularios
+    // ────────────────────────── Elementos de formularios
+    /** @type {HTMLFormElement} Formulario de registro de jugadores */
     #formRegistro;
+    
+    /** @type {HTMLFormElement} Formulario de edición de jugadores */
     #formEditar;
 
-    // Vista jugadores
+    // ────────────────────────── Elementos de la tabla de jugadores
+    /** @type {HTMLSelectElement} Select para filtrar por nombre o email */
     #filtroJugadores;
+    
+    /** @type {HTMLInputElement} Campo de búsqueda de jugadores */
     #campoBusqueda;
+    
+    /** @type {HTMLTableSectionElement} Cuerpo de la tabla de jugadores */
     #tablaJugadores;
+    
+    /** @type {HTMLElement} Elemento para mostrar cuando no hay jugadores */
     #mensajeVacio;
 
+    /**
+     * Crea una nueva instancia del controlador de jugadores
+     * Inicializa el modelo, obtiene referencias del DOM y configura eventos
+     */
     constructor() {
         this.#modeloJugadores = new ModeloJugadores();
         this.#obtenerReferenciasIU();
         this.#configurarEventos();
     }
 
-    // ─────────────────────────────────────────────
-    //  REFERENCIAS AL DOM
-    // ─────────────────────────────────────────────
+    /**
+     * Obtiene referencias a todos los elementos del DOM necesarios
+     * Se ejecuta una sola vez en el constructor
+     * @private
+     */
     #obtenerReferenciasIU() {
         // Formulario registro
         this.#nombre = document.querySelector('#nombre');
@@ -71,9 +124,11 @@ export default class ControladorJugadores {
         this.#mensajeVacio    = document.querySelector('#mensaje-vacio-jugadores');
     }
 
-    // ─────────────────────────────────────────────
-    //  EVENTOS
-    // ─────────────────────────────────────────────
+    /**
+     * Configura todos los event listeners para los botones y campos
+     * Conecta la interfaz con los métodos de lógica de la aplicación
+     * @private
+     */
     #configurarEventos() {
         this.#btnRegistro.addEventListener('click', () => this.registrarJugador());
         this.#btnGuardar.addEventListener('click',  () => this.editarJugador());
@@ -88,9 +143,12 @@ export default class ControladorJugadores {
         }
     }
 
-    // ─────────────────────────────────────────────
-    //  CREATE — Registrar jugador
-    // ─────────────────────────────────────────────
+    /**
+     * Crea y registra un nuevo jugador en el sistema
+     * Valida los datos antes de guardar
+     * 
+     * @public
+     */
     registrarJugador() {
         const nombre   = this.#nombre.value.trim();
         const age     = this.#age.value.trim();
@@ -116,9 +174,12 @@ export default class ControladorJugadores {
         this.mostrarJugadores();
     }
 
-    // ─────────────────────────────────────────────
-    //  UPDATE — Guardar cambios del jugador editado
-    // ─────────────────────────────────────────────
+    /**
+     * Actualiza los datos de un jugador existente
+     * Valida los datos antes de guardar
+     * 
+     * @public
+     */
     editarJugador() {
         const id       = this.#editarPlayerId.value;
         const nombre   = this.#editarNombre.value.trim();
@@ -147,9 +208,11 @@ export default class ControladorJugadores {
         }
     }
 
-    // ─────────────────────────────────────────────
-    //  DELETE — Eliminar jugador
-    // ─────────────────────────────────────────────
+    /**
+     * Elimina un jugador del sistema con confirmación del usuario
+     * 
+     * @public
+     */
     eliminarJugador() {
         const id = this.#editarPlayerId.value;
 
@@ -170,9 +233,12 @@ export default class ControladorJugadores {
         this.mostrarJugadores();
     }
 
-    // ─────────────────────────────────────────────
-    //  CARGAR datos en formulario de edición
-    // ─────────────────────────────────────────────
+    /**
+     * Carga los datos de un jugador en el formulario de edición
+     * 
+     * @param {string|number} id - ID único del jugador a cargar
+     * @public
+     */
     cargarDatosEnFormularioEditar(id) {
         const jugador = this.#modeloJugadores.obtenerPorId(id);
         if (!jugador) {
@@ -183,13 +249,16 @@ export default class ControladorJugadores {
         this.#editarNombre.value   = jugador.getNombre();
         this.#editarEdad.value     = jugador.getEdad();
         this.#editarEmail.value    = jugador.getEmail();
-        this.#editarPassword.value = '';          // No precargamos la contraseña
+        this.#editarPassword.value = '';          // Para que la contraseña no se muestre
         this.#editarPlayerId.value = jugador.getId();
     }
 
-    // ─────────────────────────────────────────────
-    //  READ — Mostrar jugadores (aplica filtro activo)
-    // ─────────────────────────────────────────────
+    /**
+     * Obtiene el texto de búsqueda y filtro activos
+     * Renderiza la tabla con los jugadores resultantes
+     * 
+     * @public
+     */
     mostrarJugadores() {
         const textoBusqueda = this.#campoBusqueda ? this.#campoBusqueda.value.trim() : '';
         const tipofiltro    = this.#filtroJugadores.value;
@@ -197,9 +266,14 @@ export default class ControladorJugadores {
         this.#renderizarTablaJugadores(jugadores);
     }
 
-    // ─────────────────────────────────────────────
-    //  FILTER — Filtrar y ordenar jugadores por texto y tipo
-    // ─────────────────────────────────────────────
+    /**
+     * Filtra y ordena jugadores según el texto de búsqueda y tipo de filtro
+     * 
+     * @param {string} texto - Texto a buscar en los jugadores
+     * @param {string} tipofiltro - Tipo de búsqueda: 'nombre' o 'email'
+     * @returns {Array<Jugador>} Lista de jugadores filtrados y ordenados
+     * @public
+     */
     filtrarJugadores(texto, tipofiltro) {
         let jugadores = this.#modeloJugadores.listar();
 
@@ -227,9 +301,13 @@ export default class ControladorJugadores {
         });
     }
 
-    // ─────────────────────────────────────────────
-    //  RENDER — Pintar tabla de jugadores
-    // ─────────────────────────────────────────────
+    /**
+     * Renderiza la tabla HTML con la lista de jugadores
+     * Agrega botones de editar y eliminar con event listeners
+     * 
+     * @param {Array<Jugador>} jugadores - Lista de jugadores a mostrar
+     * @private
+     */
     #renderizarTablaJugadores(jugadores) {
         this.#tablaJugadores.innerHTML = '';
 

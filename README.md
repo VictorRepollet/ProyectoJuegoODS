@@ -1,139 +1,165 @@
-# 🎮 Feed the World — Juego ODS
+# 🌍 Feed the World — Juego ODS
 
-> Juego educativo basado en la concienciación de los Objetivos de Desarrollo Sostenible (ODS) de la ONU.
+> Juego educativo interactivo basado en los Objetivos de Desarrollo Sostenible (ODS) de la ONU.  
+> Proyecto de aula — DAW 1 | JavaScript Vanilla + HTML + CSS | Patrón MVC
 
 ---
 
-## 🌍 ODS Beneficiados
+## 🎯 ODS Beneficiados
 
 | ODS | Nombre | Impacto en el juego |
 |-----|--------|---------------------|
-| 🟡 ODS 2 | **Hambre Cero** | Mecánica principal: alimentar a personas necesitadas |
-| 🔴 ODS 1 | **Fin de la Pobreza** | Al garantizar comida, la gente dispone de más recursos económicos para otras necesidades |
+| 🟡 ODS 2 | **Hambre Cero** | Mecánica principal: entregar alimentos a personas necesitadas |
+| 🔴 ODS 1 | **Fin de la Pobreza** | Garantizar alimentación libera recursos económicos para otras necesidades |
 
 ---
 
-## 🕹️ Descripción
+## 🕹️ Descripción del juego
 
-El jugador controla un personaje que recoge alimentos en un lado de la pantalla y debe hacérselos llegar a las personas más necesitadas, lanzándolos o entregándolos en mano según los gustos y pedidos de cada persona, mientras esquiva obstáculos que aparecen a lo largo del nivel.
+El jugador arrastra alimentos desde una zona de recogida y los entrega a las personas correctas según sus pedidos, utilizando mecánica **Drag & Drop**. Cada entrega correcta suma 100 puntos; los errores restan 10. La partida dura 60 segundos. Al terminar, se guarda la puntuación automáticamente en el ranking global.
 
 ---
 
 ## ⚙️ Tecnología y Arquitectura
 
-El proyecto sigue el patrón **MVC (Modelo–Vista–Controlador)** en JavaScript vanilla:
+El proyecto está desarrollado íntegramente en **JavaScript Vanilla** sin frameworks externos, aplicando el patrón **MVC (Modelo–Vista–Controlador)** con módulos ES6.
 
-```
+```txt
 📁 ProyectoJuegoODS/
-├── 📁 fuentes/
-│   ├── 📁 js/
-│   │   ├── 📁 controladores/    # Gestión del flujo y lógica de UI
-│   │   ├── 📁 modelos/          # Lógica de datos
-│   │   └── 📁 vistas/           # Interfaz y eventos del DOM
-│   └── index.html
-├── 📁 bocetos/                  # Diseños iniciales
-├── 📁 documentacion/            # Documentación del proyecto
-└── README.md
+└── 📁 fuentes/
+    ├── index.html
+    └── 📁 js/
+        ├── app.js                         # Punto de entrada principal
+        ├── navegacion.js                  # Sistema de navegación entre vistas
+        ├── 📁 controladores/
+        │   ├── controlador-juego.js       # Lógica del juego Drag & Drop
+        │   └── controlador-jugadores.js   # CRUD completo de jugadores
+        ├── 📁 modelos/
+        │   ├── jugadores.js               # Clase entidad Jugador
+        │   ├── modelo-jugadores.js        # Almacenamiento en Set
+        │   └── modelo-puntuaciones.js     # Almacenamiento en Array
+        └── 📁 vistas/
+            ├── vista-juego.js             # UI y eventos del juego
+            ├── vista-contacto.js          # Formulario de contacto
+            └── vista-puntuaciones.js      # Ranking y formulario de puntuaciones
 ```
 
 ---
 
-## ✅ Estado actual del proyecto
+## 🚀 Instalación y uso
 
-### Completado
+1. Clona el repositorio:
 
-| Módulo | Estado | Descripción |
-|--------|--------|-------------|
-| **Estructura MVC** | ✅ Hecho | Separación clara en controladores, modelos y vistas |
-| **CRUD Jugadores** | ✅ Hecho | Inserción, listado, baja y modificación de jugadores |
-| **Vista Puntuaciones** | ✅ Hecho | Formulario de inserción y ranking ordenado con `ModeloPuntuaciones` |
-| **Vista Contacto** | ⚠️ Parcial | Formulario con validaciones, pero el envío es simulado (sin modelo) |
-| **Navegación entre vistas** | ⚠️ En progreso | Las vistas existen pero se muestran todas a la vez — falta sistema de navegación |
-| **Flujo Git / Ramas** | ✅ Hecho | Trabajo con ramas por funcionalidad |
+```bash
+git clone https://github.com/tu-usuario/feed-the-world.git
+```
 
-### En progreso / Pendiente
+2. Abre `fuentes/index.html` directamente en el navegador **o** usa un servidor local (recomendado por los módulos ES6):
 
-| Módulo | Estado | Descripción |
-|--------|--------|-------------|
-| **Sistema de navegación** | ❌ Pendiente | Mostrar solo una vista activa según el menú |
-| **ModeloContacto** | ❌ Pendiente | Persistencia real de mensajes de contacto |
-| **Mecánica de juego** | ❌ Pendiente | Movimiento del personaje, recolección, Drag & Drop, temporizador |
-| **Login / Registro** | ❌ Pendiente | Formularios de autenticación |
-| **Pantalla Game Over** | ❌ Pendiente | Vista final con puntuación y opciones |
-| **Panel admin** | ❌ Pendiente | Gestión de usuarios, puntuaciones y contactos |
-| **Mensajes ODS** | ❌ Pendiente | Contenido educativo entre niveles |
+```bash
+npx serve fuentes/
+```
+
+3. No requiere instalación de dependencias ni build.
+
+> ⚠️ Los módulos ES6 (`import`/`export`) requieren servir el proyecto desde un servidor HTTP. Abrir el archivo directamente desde el sistema de archivos (`file://`) puede causar errores CORS en algunos navegadores.
 
 ---
 
-## 🗄️ Entidades CRUD implementadas
+## ✅ Funcionalidades implementadas
 
-### 👤 Jugadores (ControladorJugadores)
-| Operación | Estado |
-|-----------|--------|
-| Inserción | ✅ |
-| Listado | ✅ |
-| Baja | ✅ |
-| Modificación | ✅ |
-| Búsqueda avanzada | ❌ Pendiente |
+### Juego
 
-### 🏆 Puntuaciones (ModeloPuntuaciones)
-| Operación | Estado |
-|-----------|--------|
-| Inserción | ✅ |
-| Listado ordenado | ✅ |
-| Baja (admin) | ❌ Pendiente |
-| Búsqueda | ❌ Pendiente |
+- Mecánica Drag & Drop para entregar alimentos a personas
+- Alimentos y personas se barajan aleatoriamente en cada partida
+- Temporizador de 60 segundos con indicador visual de tiempo crítico
+- Sistema de puntuación: +100 por entrega correcta, -10 por error
+- Regeneración automática de rondas al alimentar a todas las personas
+- Botón de pausa
+- Pantalla de Game Over con puntuación y personas alimentadas
+- Guardado automático de puntuación al finalizar la partida
 
-### 📬 Contacto (VistaContacto)
-| Operación | Estado |
-|-----------|--------|
-| Inserción | ⚠️ Simulada |
-| Listado (admin) | ❌ Pendiente |
-| Baja | ❌ Pendiente |
-| Búsqueda | ❌ Pendiente |
+### Jugadores (CRUD completo)
 
----
+- Registro de jugadores (nombre, edad, email, contraseña)
+- Listado con tabla interactiva
+- Edición de datos desde la propia tabla
+- Eliminación con confirmación
+- Búsqueda en tiempo real por nombre o email
+- Filtrado y ordenación alfabética
 
-## 📋 Historias de Usuario — Estado
+### Puntuaciones
 
-### Sprint 1
+- Guardado automático tras cada partida
+- Inserción manual desde formulario
+- Ranking ordenado de mayor a menor puntuación
 
-| ID | Historia | Estado |
-|----|----------|--------|
-| US-01 | Menú principal | ⚠️ Parcial |
-| US-02 | Registro de usuario | ❌ Pendiente |
-| US-03 | Login | ❌ Pendiente |
-| US-05 | Navegación entre vistas | ⚠️ En progreso |
-| US-06 | Vista de instrucciones | ❌ Pendiente |
-| US-08 | Movimiento con teclado | ❌ Pendiente |
-| US-09 | Recoger alimentos | ❌ Pendiente |
-| US-25 | Estructura MVC | ✅ Hecho |
-| US-27 | Ramas de Git | ✅ Hecho |
-| US-28 | Code reviews | ✅ Hecho |
+### Contacto
 
-### Sprint 2
+- Formulario con validación de campos obligatorios
+  (nombre, email, descripción, género, tipo, términos)
 
-| ID | Historia | Estado |
-|----|----------|--------|
-| US-04 | Editar perfil | ❌ Pendiente |
-| US-07 | Pantalla Game Over | ❌ Pendiente |
-| US-10 | Drag & Drop | ❌ Pendiente |
-| US-11 | Obstáculos | ❌ Pendiente |
-| US-12 | Pedidos de comida | ❌ Pendiente |
-| US-13 | Temporizador | ❌ Pendiente |
-| US-14 | Listar usuarios (admin) | ✅ Hecho |
-| US-15 | Dar de baja usuario (admin) | ✅ Hecho |
-| US-17 | Guardar puntuación | ✅ Hecho |
-| US-18 | Ranking global | ✅ Hecho |
-| US-20 | Formulario de contacto | ⚠️ Parcial |
-| US-23 | Mecánica ODS 2 activa | ❌ Pendiente |
-| US-26 | DRY / sin código duplicado | ⚠️ En progreso |
+### Navegación
+
+- Sistema de vistas únicas (solo una visible a la vez)
+- Navegación por botones sin recarga de página
+- Redirección automática al ranking al terminar una partida
 
 ---
 
-## 🤝 Contribución
+## 🗄️ Entidades del sistema
 
-1. Crea tu rama: `git checkout -b feature/US-XX-descripcion`
-2. Realiza tus cambios y haz commit: `git commit -m "feat(US-XX): descripción"`
-3. Abre un Pull Request hacia `main`
-4. Espera la revisión de al menos un compañero antes de hacer merge
+### 👤 Jugador
+
+| Campo | Tipo | Descripción |
+|-------|------|-------------|
+| id | Number (auto) | Identificador único autoincremental |
+| nombre | String | Nombre del jugador |
+| age | Number | Edad |
+| email | String | Correo electrónico |
+| password | String | Contraseña |
+
+### 🏆 Puntuación
+
+| Campo | Tipo | Descripción |
+|-------|------|-------------|
+| nombre | String | Nombre del jugador |
+| puntuacion | Number | Puntos obtenidos en la partida |
+
+---
+
+## 👥 Equipo
+
+| Miembro | Rol principal |
+|---------|--------------|
+| Alejandro | Modelos: `jugadores.js`, `modelo-jugadores.js`, `modelo-puntuaciones.js` |
+| Carlos | Controladores: `controlador-jugadores.js`, `controlador-juego.js` |
+| Víctor | Integración: `app.js`, `index.html`, `style.css`, `navegacion.js` |
+
+---
+
+## 🤝 Flujo de trabajo Git
+
+```bash
+# Crear rama por funcionalidad
+git checkout -b feature/HU-X-descripcion
+
+# Commit semántico
+git commit -m "feat(HU-X): descripción del cambio"
+
+# Pull Request hacia main con revisión de al menos un compañero
+```
+
+---
+
+## 📋 Estado del proyecto
+
+| Módulo | Estado |
+|--------|--------|
+| Estructura MVC | ✅ Completo |
+| CRUD Jugadores | ✅ Completo |
+| Sistema de navegación | ✅ Completo |
+| Juego Drag & Drop | ✅ Completo |
+| Temporizador y HUD | ✅ Completo |
+| Ranking y puntuaciones | ✅ Completo |
+| Vista Contacto | ✅ Completo |
