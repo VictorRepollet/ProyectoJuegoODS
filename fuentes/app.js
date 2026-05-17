@@ -63,7 +63,7 @@ class App {
                 setTimeout(() => {
                     this.#navegacion.mostrarVista('ranking');
                     this.#vistaPuntuaciones.mostrarPuntuaciones();
-                }, 500);
+                }, 3000);
             }
         });
     }

@@ -27,7 +27,6 @@ export default class Navegacion {
      * @private
      */
     #inicializar() {
-        
         // Mostrar vista inicial
         this.mostrarVista('bloque-juego');
     }

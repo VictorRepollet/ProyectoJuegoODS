@@ -321,27 +321,7 @@ export default class ControladorJugadores {
             fila.innerHTML = `
                 <td>${jugador.getNombre()}</td>
                 <td>${jugador.getEmail()}</td>
-                <td>
-                    <button class="btn-tabla editar" data-id="${jugador.getId()}">Editar</button>
-                    <button class="btn-tabla eliminar" data-id="${jugador.getId()}">Eliminar</button>
-                </td>
             `;
-
-            // Botón editar por fila
-            fila.querySelector('.editar').addEventListener('click', () => {
-                this.cargarDatosEnFormularioEditar(jugador.getId());
-            });
-
-            // Botón eliminar por fila
-            fila.querySelector('.eliminar').addEventListener('click', () => {
-                const confirmar = confirm(`¿Eliminar a "${jugador.getNombre()}"?`);
-                if (confirmar) {
-                    this.#modeloJugadores.eliminar(jugador.getId());
-                    alert(`Jugador "${jugador.getNombre()}" eliminado.`);
-                    this.mostrarJugadores();
-                }
-            });
-
             this.#tablaJugadores.appendChild(fila);
         });
     }

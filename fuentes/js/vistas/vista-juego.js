@@ -169,7 +169,7 @@ export default class VistaJuegoDragDrop {
             div.querySelector('.alimento-emoji').textContent  = alimento.tipo;
             div.querySelector('.alimento-nombre').textContent = alimento.nombre;
 
-            // ── dragstart: guardar id (igual que el profesor) ──
+            // ── dragstart: guardar id ──
             div.addEventListener('dragstart', (e) => {
                 e.dataTransfer.setData('text/plain', div.id);
                 e.target.style.opacity = '0.4';
@@ -228,20 +228,37 @@ export default class VistaJuegoDragDrop {
      * @private
      */
     #regenerarPersonas() {
-        // Obtener todos los tipos de alimentos disponibles
-        const tiposAlimentos = this.#alimentosDisponibles.map(a => a.tipo);
+        // 1. Extraer los tipos de alimentos disponibles
+        const tiposAlimentos = [];
+        for (let i = 0; i < this.#alimentosDisponibles.length; i++) {
+            tiposAlimentos.push(this.#alimentosDisponibles[i].tipo);
+        }
         
-        // Mezclar los tipos de alimentos
-        const tiposBarajados = [...tiposAlimentos].sort(() => Math.random() - 0.5);
+        // 2. Barajar aleatoriamente los tipos (Fisher-Yates)
+        for (let i = tiposAlimentos.length - 1; i > 0; i--) {
+            const posAleatoria = Math.floor(Math.random() * (i + 1));
+            const temp = tiposAlimentos[i];
+            tiposAlimentos[i] = tiposAlimentos[posAleatoria];
+            tiposAlimentos[posAleatoria] = temp;
+        }
         
-        // Asignar pedidos variados a cada persona
-        const personasReencontradas = this.#personasDisponibles.map((p, idx) => ({
-            ...p,
-            id: `per-${idx}-${Date.now()}`,
-            pedido: tiposBarajados[idx % tiposBarajados.length]  // Distribuir sin repetir
-        }));
+        // 3. Crear nuevas personas con IDs únicos y pedidos asignados
+        const personasNuevas = [];
+        for (let i = 0; i < this.#personasDisponibles.length; i++) {
+            const personaOriginal = this.#personasDisponibles[i];
+            const nuevoId = 'per-' + i + '-' + Date.now();
+            const numeroPedido = i % tiposAlimentos.length;
+            
+            const personaNueva = {
+                nombre: personaOriginal.nombre,
+                id: nuevoId,
+                pedido: tiposAlimentos[numeroPedido]
+            };
+            personasNuevas.push(personaNueva);
+        }
         
-        this.#renderizarPersonas(personasReencontradas);
+        // 4. Renderizar y configurar para nuevas interacciones
+        this.#renderizarPersonas(personasNuevas);
         this.#configurarDropzones();
     }
 
@@ -257,7 +274,7 @@ export default class VistaJuegoDragDrop {
 
         dropzones.forEach(dropzone => {
 
-            // dragover: prevenir default para permitir drop (igual que el profesor)
+            // dragover: prevenir default para permitir drop
             dropzone.addEventListener('dragover', (e) => {
                 e.preventDefault();
                 dropzone.classList.add('highlight');
@@ -306,14 +323,14 @@ export default class VistaJuegoDragDrop {
         dropzone.classList.add('satisfecha');
         dropzone.querySelector('.persona-bocadillo').style.display = 'none';
 
-        // Texto +100 flotante (único elemento creado aquí, es efímero)
+        // Texto +100 flotante
         const feedback = document.createElement('div');
         feedback.classList.add('feedback-puntos');
         feedback.textContent = '+100';
         dropzone.appendChild(feedback);
         setTimeout(() => feedback.remove(), 1200);
 
-        // ── ALIMENTO: Feedback visual SIN eliminarlo ──
+        // ── ALIMENTO: Feedback visual sin eliminarlo ──
         elemAlimento.style.opacity = '0.3';
         setTimeout(() => {
             elemAlimento.style.opacity = '1';

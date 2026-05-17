@@ -114,7 +114,7 @@ export default class VistaContacto {
             return;
         }
 
-        // Simulación de envío (aquí iría la llamada a una API o modelo)
+        // Simulación de envío
         alert(` Mensaje enviado correctamente.\n\nGracias, ${nombre}. Nos pondremos en contacto contigo en ${email}.`);
         this.#form.reset();
     }
